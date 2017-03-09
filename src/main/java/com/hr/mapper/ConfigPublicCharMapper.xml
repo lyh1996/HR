@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigPublicCharMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	 
+	<!-- 查询所有职称 -->
+	<select id="getAllProfessions" resultType="ConfigPublicChar">
+		select * from config_public_char where attribute_kind=#{attribute_kind}
+	</select>
+	<!-- 添加职称 -->
+	<insert id="saveProfession" parameterType="ConfigPublicChar"
+		useGeneratedKeys="true" keyProperty="pbc_id">
+		insert into
+		config_public_char(attribute_kind,attribute_name)
+		values(#{attribute_kind},#{attribute_name})
+	</insert>
+	<!-- 根据职位名字查询 -->
+	<select id="getProfessionByName" resultType="ConfigPublicChar"
+		parameterType="ConfigPublicChar">
+		select * from config_public_char where
+		attribute_kind=#{attribute_kind} and attribute_name=#{attribute_name}
+	</select>
+	<!-- 删除职位信息 -->
+	<delete id="delProfession" parameterType="ConfigPublicChar">
+		delete from
+		config_public_char where pbc_id=#{pbc_id}
+	</delete>
+	
+	<!-- 查询所有公共属性 -->
+	<select id="getAllChars" resultType="ConfigPublicChar" parameterType="ConfigPublicChar">
+		select * from config_public_char order by attribute_kind limit #{page.startPos},#{page.pageSize} 
+        <!--startPos开始页 ， pageSize每页显示的记录条数-->
+	</select>
+	<!--查询公共属性总记录条数-->
+    <select id="getCharCount" resultType="int" >
+        select count(*) from config_public_char 
+    </select>
+ 
+</mapper>

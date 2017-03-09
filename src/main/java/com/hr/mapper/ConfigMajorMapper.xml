@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigMajorMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	<!-- 查询所有职位 -->
+	<select id="getAllMajors" resultType="ConfigMajor" parameterType="ConfigMajor">
+		select * from config_major order by major_kind_name  desc limit #{page.startPos},#{page.pageSize}
+	</select>
+	<!--查询总记录条数-->
+    <select id="getMajorCount" resultType="int" >
+        select count(*) from config_major 
+    </select>
+	
+	<!-- 插入信息 -->
+	<insert id="saveConfigMajor" parameterType="ConfigMajor"
+		useGeneratedKeys="true" keyProperty="mak_id">
+		insert into
+		config_major(major_kind_id,major_kind_name,major_id,major_name,test_amount)
+		values(#{major_kind_id},#{major_kind_name},#{major_id},#{major_name},default)
+	</insert>
+	
+	<!-- 根据职位名查找 -->
+	<select id="getConfigMajorByName" resultType="ConfigMajor"
+		parameterType="ConfigMajor">
+		select * from config_major where
+		major_name=#{major_name} and major_kind_name=#{major_kind_name}
+	</select>
+		<!-- 根据职位类型查找 -->
+	<select id="getConfigMajorByKindName" resultType="ConfigMajor"
+		parameterType="ConfigMajor">
+		select * from config_major where
+		major_kind_name=#{major_kind_name}
+	</select>
+	
+	<!-- 删除职位信息 -->
+	<delete id="delMajor" parameterType="ConfigMajor">
+		delete from
+		config_major where major_kind_id=#{major_kind_id}
+	</delete>
+	
+	<!-- 根据职位ID查找 -->
+	<select id="getConfigMajorByKindId" resultType="ConfigMajor"
+		parameterType="ConfigMajor">
+		select * from config_major where
+		major_kind_id=#{major_kind_id}
+	</select>
+	 
+</mapper>

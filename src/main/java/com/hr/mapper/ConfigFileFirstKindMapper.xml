@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigFileFirstKindMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+	<resultMap id="ConfigFileFirstKindMap" type="ConfigFileFirstKind">
+		<!-- Teacher类中对应的数据表的主键列 property表示类中的属性名 ，column这个属性在表中的列名 -->
+		<id property="ffkId" column="ffk_id" />
+		<!-- result表示配置的是数据表中的非主键的属性 -->
+		<result property="firstKindId" column="first_kind_id" />
+		<result property="firstKindName" column="first_kind_name" />
+		<result property="firstKindSalaryId" column="first_kind_salary_id" />
+		<result property="firstKindSaleId" column="first_kind_sale_id" />
+	</resultMap>
+
+	<select id="getAllConfigFileFirstKinds" resultMap="ConfigFileFirstKindMap">
+		select * from
+		config_file_first_kind
+	</select>
+	<!-- 根据机构名查找 -->
+	<select id="getConfigFileFirstKindByName" resultMap="ConfigFileFirstKindMapByName"
+		parameterType="ConfigFileFirstKind">
+		select * from config_file_first_kind where
+		first_kind_name=#{firstKindName}
+	</select>
+	<resultMap id="ConfigFileFirstKindMapByName" type="ConfigFileFirstKind">
+		<!-- Teacher类中对应的数据表的主键列 property表示类中的属性名 ，column这个属性在表中的列名 -->
+		<id property="ffkId" column="ffk_id" />
+		<!-- result表示配置的是数据表中的非主键的属性 -->
+		<result property="firstKindId" column="first_kind_id" />
+		<result property="firstKindName" column="first_kind_name" />
+		<result property="firstKindSalaryId" column="first_kind_salary_id" />
+		<result property="firstKindSaleId" column="first_kind_sale_id" />
+	</resultMap>
+	<!-- 根据ID查询数据 -->
+	<select id="getConfigFileFirstKindById" resultMap="ConfigFileFirstKindMapById"
+		parameterType="ConfigFileFirstKind">
+		select * from config_file_first_kind where
+		first_kind_id=#{firstKindId}
+	</select>
+	<resultMap id="ConfigFileFirstKindMapById" type="ConfigFileFirstKind">
+		<!-- Teacher类中对应的数据表的主键列 property表示类中的属性名 ，column这个属性在表中的列名 -->
+		<id property="ffkId" column="ffk_id" />
+		<!-- result表示配置的是数据表中的非主键的属性 -->
+		<result property="firstKindId" column="first_kind_id" />
+		<result property="firstKindName" column="first_kind_name" />
+		<result property="firstKindSalaryId" column="first_kind_salary_id" />
+		<result property="firstKindSaleId" column="first_kind_sale_id" />
+	</resultMap>
+	<!-- 插入信息 -->
+	<insert id="saveConfigFileFirstKind" parameterType="ConfigFileFirstKind"
+		useGeneratedKeys="true" keyProperty="first_kind_id">
+		insert into
+		config_file_first_kind(first_kind_id,first_kind_name,first_kind_salary_id,first_kind_sale_id)
+		values(#{firstKindId},#{firstKindName},#{firstKindSalaryId},#{firstKindSaleId})
+	</insert>
+	<!-- 更新 -->
+	<update id="updateConfigFileFirstKind" parameterType="ConfigFileFirstKind">
+		update config_file_first_kind set
+		first_kind_id=#{firstKindId},first_kind_name=#{firstKindName},first_kind_salary_id=#{firstKindSalaryId},first_kind_sale_id=#{firstKindSaleId} 
+		where ffk_id=#{ffkId}
+	</update>
+	<!-- 删除一级机构信息 -->
+	<delete id="delConfigFileFirstKind" parameterType="ConfigFileFirstKind">
+		delete from config_file_first_kind where ffk_id=#{ffkId}
+	</delete>
+	
+</mapper>

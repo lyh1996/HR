@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigFileThirdKindMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	<!--查询总记录条数-->
+    <select id="getThirdKindCount" resultType="int" >
+        select count(*) from config_file_third_kind 
+    </select>
+	<!-- 查询所有 -->
+	<select id="getAllConfigFileThirdKinds" resultType="ConfigFileThirdKind" parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind limit #{page.startPos},#{page.pageSize}
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveConfigFileThirdKind" parameterType="ConfigFileThirdKind"
+		useGeneratedKeys="true" keyProperty="ftk_id">
+		insert into
+		config_file_third_kind(first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,third_kind_sale_id,third_kind_is_retail)
+		values(#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{third_kind_id},#{third_kind_name},#{third_kind_sale_id},#{third_kind_is_retail})
+	</insert>
+	<!-- 根据机构名查找 -->
+	<select id="getConfigFileThirdKindByName" resultType="ConfigFileThirdKind"
+		parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind where
+		third_kind_name=#{third_kind_name} and second_kind_id=#{second_kind_id} and first_kind_id=#{first_kind_id}
+	</select>
+
+	<!-- 根据ID查询数据 -->
+	<select id="getConfigFileThirdKindById" resultType="ConfigFileThirdKind"
+		parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind where
+		ftk_id=#{ftk_id}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updateConfigFileThirdKind" parameterType="ConfigFileThirdKind">
+		update
+		config_file_third_kind set
+		third_kind_sale_id=#{third_kind_sale_id} 
+		where ftk_id=#{ftk_id}
+	</update>
+	<!-- 删除机构信息 -->
+	<delete id="delConfigFileThirdKind" parameterType="ConfigFileThirdKind">
+		delete from
+		config_file_third_kind where ftk_id=#{ftk_id}
+	</delete>
+	
+	<!-- 根据二级机构号查找 -->
+	<select id="getConfigFileSecondKindBySecondtId" resultType="ConfigFileThirdKind"
+		parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind where
+		second_kind_id=#{second_kind_id}
+	</select>
+	
+	<select id="getInfoBySFId" resultType="ConfigFileThirdKind"
+		parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind where
+		 first_kind_id=#{first_kind_id} and second_kind_id=#{second_kind_id} 
+	</select>
+
+</mapper>

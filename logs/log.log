@@ -1,0 +1,6 @@
+2017-03-04 08:57:02  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@167f48c: startup date [Sat Mar 04 08:57:02 CST 2017]; root of context hierarchy
+2017-03-04 08:57:03  [ main:113 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-04 08:57:03  [ main:590 ] - [ INFO ]  Loading properties file from URL [file:/E:/eclipseworkspace/HrOur/Hrour/target/classes/db.properties]
+2017-03-04 08:57:13  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@12f9ee1: startup date [Sat Mar 04 08:57:13 CST 2017]; root of context hierarchy
+2017-03-04 08:57:13  [ main:50 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-04 08:57:13  [ main:410 ] - [ INFO ]  Loading properties file from URL [file:/E:/eclipseworkspace/HrOur/Hrour/target/classes/db.properties]

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	 
+	<!-- 采用Spring的混合配置
+		1、自己写的类使用注解  方案
+		2.第三方框架中的类，使用xml配置
+		3.Aop切面  也可以采用两种方案
+				a.事物处理   ：xml配置
+				b.其他的切面增强  ：注解
+	 -->
+	<context:component-scan base-package="com.hr" />
+
+	<!-- 启用注解解析机制    面向接口使用jdk的动态代理-->
+	<aop:aspectj-autoproxy/>
+	
+	<!-- 数据库连接 读取文件  Spring启动的时候会以流的方式读取文件配置信息 -->
+	<context:property-placeholder location="classpath*:db.properties"/>
+	<!-- Spring整合Mybatis/hibernate/jdbc/jpa的配置思路 ：
+		1.配置数据源   （数据库连接池）
+		2.如果使用了dao框架 都要要求配置连接会话的工厂
+		3.由工厂创建会话  注入到dao层中使用模板类
+	-->
+	
+	<!-- 使用dbcp的数据库连接池 -->
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="${jdbc.driverClassName}"/>
+	    <property name="url" value="${jdbc.url}"/>
+	    <property name="username" value="${jdbc.username}"/>
+	    <property name="password" value="${jdbc.password}"/>
+	</bean>
+
+	<!-- 取得sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 读取mybatis的配置文件  (去掉)
+		<property name="configLocation" value="mybatis-config.xml" />
+		 -->
+		<!--  主要用来配置mybatis中 的configuration中的settings配置 -->
+		<property name="configurationProperties">
+			<props>
+				<prop key="logImpl"> LOG4J</prop>
+			</props>
+		</property>
+		
+		<!-- 别名的包的位置 -->
+		<property name="typeAliasesPackage" value="com.hr.bean"></property>
+		<!--  配置mapper的映射文件位置 -->
+		<property name="mapperLocations" value="classpath*:com/hr/mapper/*.xml"/>
+		<!-- 读取mapper的配置文件信息 -->
+		 
+	</bean>
+		
+		 
+   
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+	<!-- 	由Spring提供的事务增强 -->
+	  <tx:advice id="txAdvice" transaction-manager="txManager">  
+	<!-- 	spring只支持方法级别的增强，所以这里配置哪些方法要加入事务增强 -->
+	  <tx:attributes>
+		<tx:method name="get*" read-only="true"></tx:method>
+		<tx:method name="find" read-only="true"></tx:method>
+		<tx:method name="retrieve*" read-only="true"></tx:method>
+		<tx:method name="*" read-only="false"></tx:method>
+	</tx:attributes>
+	</tx:advice>  
+	<!-- 切面的配置 -->
+	  <aop:config>
+		<aop:pointcut id="abc" expression="execution(* com.hr.biz.impl.*.*(..))"></aop:pointcut>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="abc"></aop:advisor>
+	</aop:config>
+ 
+</beans>

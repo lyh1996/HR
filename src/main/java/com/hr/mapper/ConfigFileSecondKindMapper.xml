@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigFileSecondKindMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	<!--查询总记录条数-->
+    <select id="getSecondKindCount" resultType="int" >
+        select count(*) from config_file_second_kind 
+    </select>
+	<!-- 查询所有分页-->
+	<select id="getAllConfigFileSecondKindsPage" resultType="ConfigFileSecondKind" parameterType="ConfigFileSecondKind">
+		select * from config_file_second_kind limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<!-- 查询所有-->
+	<select id="getAllConfigFileSecondKinds" resultType="ConfigFileSecondKind" >
+		select * from config_file_second_kind 
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveConfigFileSecondKind" parameterType="ConfigFileSecondKind"
+		useGeneratedKeys="true" keyProperty="fsk_id">
+		insert into
+		config_file_second_kind(first_kind_id,first_kind_name,second_kind_id,second_kind_name,second_salary_id,second_sale_id)
+		values(#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{second_salary_id},#{second_sale_id})
+	</insert>
+	<!-- 根据机构名查找 -->
+	<select id="getConfigFileSecondKindByName" resultType="ConfigFileSecondKind"
+		parameterType="ConfigFileSecondKind">
+		select * from config_file_second_kind where
+		second_kind_name=#{second_kind_name} and first_kind_id=#{first_kind_id}
+	</select>
+
+	<!-- 根据ID查询数据 -->
+	<select id="getConfigFileSecondKindById" resultType="ConfigFileSecondKind"
+		parameterType="ConfigFileSecondKind">
+		select * from config_file_second_kind where
+		fsk_id=#{fsk_id}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updateConfigFileSecondKind" parameterType="ConfigFileSecondKind">
+		update
+		config_file_second_kind set
+		 second_salary_id=#{second_salary_id},second_sale_id=#{second_sale_id}
+		where fsk_id=#{fsk_id}
+	</update>
+	<!-- 删除机构信息 -->
+	<delete id="delConfigFileSecondKind" parameterType="ConfigFileSecondKind">
+		delete from config_file_second_kind where fsk_id=#{fsk_id}
+	</delete>
+	<!-- 根据一级机构号查找 -->
+	<select id="getConfigFileSecondKindByFirstId" resultType="ConfigFileSecondKind"
+		parameterType="ConfigFileSecondKind">
+		select * from config_file_second_kind where
+		first_kind_id=#{first_kind_id}
+	</select>
+
+</mapper>
