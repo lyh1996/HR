@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.sql.DataSource;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import junit.framework.TestCase;
 
 public class TestSpring extends TestCase {

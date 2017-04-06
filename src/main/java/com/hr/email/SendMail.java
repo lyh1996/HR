@@ -18,7 +18,7 @@ public class SendMail {
         
         /*下面的信息需要根据实际进行修改*/
         mailInfo.setUsername("15874716591@163.com");             // 实际发送者
-        mailInfo.setPassword("k15874716591");                        // 您的邮箱密码
+        mailInfo.setPassword("填写密码");                        // 您的邮箱密码
         mailInfo.setFromAddress("15874716591@163.com");         // 设置发送人邮箱地址
         mailInfo.setToAddress(toUrl);             // 设置接受者邮箱地址
         mailInfo.setSubject(title);             
