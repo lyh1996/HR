@@ -1,4 +1,4 @@
-
+select * from hrRight  where 1=1 limit 1,5
 /* 创建新表 "users"。                                                                               */
 /* "user" : 用户表                                                                               */
 /* 	"user_id" : 主键，自动增长列                                                                      */
@@ -6,18 +6,125 @@
 /* 	"user_true_name" : 真实姓名                                                                   */
 /* 	"user_password" : 密码                                                                      */  
 create table users ( 
-	u_id int primary key auto_increment,
-	u_name varchar(60) not null,
-	u_true_name varchar(60) not null,
-	u_password varchar(60) not null
-)  
+	UId int primary key auto_increment, 
+	UName varchar(60) , 
+	UTrueName varchar(60)  , 
+	UPassword varchar(60),   
+	hufId int  
+) 
+select * from users
+drop table users
+--角色ID
+--角色名字
+--角色描述
+--角色状态
+create table role( 
+	RId int primary key auto_increment,
+	RName varchar(60) ,
+	RDesc varchar(200) ,
+	RFlag int 
+) 
+insert into role(RName,RDesc,RFlag) values('应聘者','可以进行简历填写',1);
+drop table role; 
+--权限编号 --权限父类编号 --权限类型 --权限文本 --权限地址 --权限描述
+drop table hrRight; 
+create table hrRight( 
+	 rightCode varchar(60) not null,
+	 rightParentCode varchar(60) ,
+	rightType varchar(60)  ,
+	rightText varchar(200)  ,
+	rightUrl varchar(100)  ,
+	rightTip varchar(200)  
+) 
+insert into hrRight values('L01','-1','Folder','客户化设置','','进行基本数据的录入');
+insert into hrRight values('L0101','L01','Folder','人力资源档案管理设置','','人力资源档案管理数据录入');
+insert into hrRight values('L010101','L0101','Document','一级机构设置','getconfigfilefirstkinds','一级机构数据录入');
+insert into hrRight values('L010102','L0101','Document','二级机构设置','configfilesecondkind.do?operate=list&pageNow=1','二级机构数据录入');
+insert into hrRight values('L010103','L0101','Document','三级机构设置','configfilethirdkind.do?operate=list&pageNow=1','三级机构数据录入');
+insert into hrRight values('L010104','L0101','Document','职称设置','configprofessiondesign.do?operate=list&pageNow=1','职称数据录入');
+insert into hrRight values('L010105','L0101','Document','职位分类设置','configmajorkind.do?operate=list&pageNow=1','职位分类数据录入');
+insert into hrRight values('L010106','L0101','Document','职位设置','configmajor.do?operate=list&pageNow=1','职位数据录入');
+insert into hrRight values('L010107','L0101','Document','公共属性设置','configpublicchar.do?operate=list&pageNow=1','公共属性数据录入');
+insert into hrRight values('L0102','L01','Folder','薪酬管理设置','','薪酬管理数据录入');
+insert into hrRight values('L010201','L0102','Document','薪酬项目设置','configsalarydesign.do?operate=list','薪酬项目数据录入');
+insert into hrRight values('L010202','L0102','Document','薪酬发放方式设置','configsalarygrantmode.do?operate=toAdd','薪酬发放方式数据录入');
+insert into hrRight values('L0103','L01','Folder','题库管理设置','','题库管理数据录入');
+insert into hrRight values('L010301','L0103','Document','试题一级分类设置','configquestionfirstkind.do?operate=list&pageNow=1','试题一级分类数据录入');
+insert into hrRight values('L010302','L0103','Document','试题二级分类设置','configquestionsecondkind.do?operate=list&pageNow=1','试题二级分类数据录入');
+insert into hrRight values('L0104','L01','Folder','其他设置','','其他数据录入');
+insert into hrRight values('L010401','L0104','Document','关键字查询设置','configprimarykey.do?operate=locate','关键字查询数据录入');
+insert into hrRight values('L02','-1','Folder','人力资源管理设置','','人力资源管理录入');
+insert into hrRight values('L0201','L02','Document','人力资源档案登记','humanfile.do?operate=toAdd','人力资源档案登记');
+insert into hrRight values('L0202','L02','Document','人力资源档案登记复核','humanfile.do?operate=list&pageNow=1','人力资源档案登记复核');
+insert into hrRight values('L0203','L02','Document','人力资源档案查询','humanfile.do?operate=toLocate&method=query','人力资源档案查询');
+insert into hrRight values('L0204','L02','Document','人力资源档案变更','humanfile.do?operate=toLocate&method=change','人力资源档案变更');
+insert into hrRight values('L0205','L02','Folder','人力资源档案删除管理','','人力资源档案删除管理');
+insert into hrRight values('L020501','L0205','Document','人力资源档案删除','humanfile.do?operate=toLocate&method=delete','人力资源档案删除数据记载');
+insert into hrRight values('L020502','L0205','Document','档案删除恢复','humanfile.do?operate=toLocate&method=recovery','人力资源档案删除恢复数据记载');
+insert into hrRight values('L020503','L0205','Document','人力资源档案永久删除','humanfile.do?operate=list&method=delforever&pageNow=1','人力资源档案永久删除记载');
+insert into hrRight values('L03','-1','Folder','薪酬标准管理','','薪酬标准管理录入');
+insert into hrRight values('L0301','L03','Document','薪酬标准登记','salarystandard.do?operate=toAdd','薪酬标准登记录入');
+insert into hrRight values('L0302','L03','Document','薪酬标准登记复核','salarystandard.do?operate=toCheck&status=0&method=check','薪酬标准登记复核录入');
+insert into hrRight values('L0303','L03','Document','薪酬标准查询','salarystandard.do?operate=toLocate&method=query','薪酬标准查询录入');
+insert into hrRight values('L0304','L03','Document','薪酬标准变更','salarystandard.do?operate=toChangeLocate','薪酬标准变更录入');
+insert into hrRight values('L04','-1','Folder','薪酬发放管理','','薪酬发放管理录入');
+insert into hrRight values('L0401','L04','Document','薪酬发放登记','salarygrant.do?operate=locate','薪酬发放登记录入');
+insert into hrRight values('L0402','L04','Document','薪酬发放登记复核','salarygrant.do?operate=tocheck','薪酬发放登记复核录入');
+insert into hrRight values('L0403','L04','Document','薪酬发放查询','salarygrant.do?operate=toquerylocate','薪酬发放查询');
+insert into hrRight values('L05','-1','Folder','调动管理','','调动管理录入');
+insert into hrRight values('L0501','L05','Document','调动登记','majorchange.do?operate=query','调动登记录入');
+insert into hrRight values('L0502','L05','Document','调动审核','majorchange.do?operate=check&pageNow=1','调动审核录入');
+insert into hrRight values('L0503','L05','Document','调动查询','majorchange.do?operate=queryAll&pageNow=1','调动查询录入');
+insert into hrRight values('L06','-1','Folder','培训管理','','培训管理录入');
+insert into hrRight values('L0601','L06','Document','培训登记','training.do?operate=list&pageNow=1','培训登记录入');
+insert into hrRight values('L0602','L06','Document','培训登记复核','training.do?operate=check&pageNow=1','培训登记复核录入');
+insert into hrRight values('L0603','L06','Document','培训查询','training.do?operate=queryAll&pageNow=1','培训查询录入');
+insert into hrRight values('L07','-1','Folder','激励管理','','激励管理录入');
+insert into hrRight values('L0701','L07','Document','激励登记','bonus.do?operate=query','激励登记录入');
+insert into hrRight values('L0702','L07','Document','激励登记复核','bonus.do?operate=check&pageNow=1','激励登记复核录入');
+insert into hrRight values('L0703','L07','Document','激励查询','bonus.do?operate=queryAll&pageNow=1','激励查询录入');
+insert into hrRight values('L08','-1','Folder','招聘管理','','招聘管理录入');
+insert into hrRight values('L0801','L08','Folder','职位发布管理','','职位发布管理录入');
+insert into hrRight values('L080101','L0801','Document','职位发布登记','engagemajorrelease.do?operate=toAdd','职位发布登记录入');
+insert into hrRight values('L080102','L0801','Document','职位发布变更','engagemajorrelease.do?operate=doEdits&pageNow=1','职位发布变更录入');
+insert into hrRight values('L0802','L08','Folder','简历管理','','简历管理录入');
+insert into hrRight values('L080202','L0802','Document','简历筛选','engageresume.do?operate=locate&method=check','简历筛选录入');
+insert into hrRight values('L080203','L0802','Document','有效简历查询','engageresume.do?operate=locate&method=query','有效简历查询录入');
+insert into hrRight values('L0803','L08','Folder','面试管理','','面试管理录入');
+insert into hrRight values('L080301','L0803','Document','面试结果登记','engageresume.do?operate=locate&method=interview','面试结果登记录入');
+insert into hrRight values('L080302','L0803','Document','面试筛选','engageinterview.do?operate=list&pageNow=1','面试筛选录入');
+insert into hrRight values('L0804','L08','Folder','招聘考试题库管理','','招聘考试题库管理录入');
+insert into hrRight values('L080401','L0804','Document','试题登记','engagesubjects.do?operate=toAdd','试题登记录入');
+insert into hrRight values('L080402','L0804','Document','试题查询','engagesubjects.do?operate=locate&param=query','试题查询录入');
+insert into hrRight values('L0805','L08','Folder','招聘考试管理','','招聘考试管理录入');
+insert into hrRight values('L080501','L0805','Document','考试出题','engageExam.do?operate=toRegisterList&pageNow=1','考试出题录入');
+insert into hrRight values('L080502','L0805','Document','考试阅卷','engageAnswer.do?operate=toReadLocate','考试阅卷录入');
+insert into hrRight values('L080503','L0805','Document','成绩查询筛选','engageAnswer.do?operate=toFilter','成绩查询筛选录入');
+insert into hrRight values('L0806','L08','Folder','录用管理','','录用管理录入');
+insert into hrRight values('L080601','L0806','Document','录用申请','engageresume.do?operate=passList&method=register&passStatus=0&pageNow=1','录用申请录入');
+insert into hrRight values('L080602','L0806','Document','录用审批','engageresume.do?operate=passList&method=check&passStatus=1&pageNow=1','录用审批录入');
+insert into hrRight values('L080603','L0806','Document','录用查询','engageresume.do?operate=passList&method=query&passStatus=2&pageNow=1','录用查询录入');
+insert into hrRight values('L09','-1','Folder','标准数据报表','','标准数据报表录入');
+insert into hrRight values('L0901','L09','Document','EXCEL标准数据报表','exportfile.do?operate=toExport&method=excel','EXCEL标准数据报表录入');
+insert into hrRight values('L0902','L09','Document','pdf标准数据报表','exportfile.do?operate=toExport&method=pdf','pdf标准数据报表录入');
+insert into hrRight values('L010','-1','Folder','权限管理','','权限管理录入');
+insert into hrRight values('L01001','L010','Document','权限管理','right.do?operate=toRight&pageNow=1','权限管理录入');
+insert into hrRight values('L01002','L010','Document','用户管理','right.do?operate=toUser','用户管理录入');
+insert into hrRight values('L01003','L010','Document','角色管理','right.do?operate=toRole','角色管理录入');
 
-select * from users;
-
-insert into users(u_name,u_true_name,u_password) values('better_admin','zhangsan','123456');
-
-
-
+update hrRight set rightUrl='engageresume.do?operate=passList&method=query&passStatus=2&pageNow=1' where rightCode='L080603'
+select * from hrRight
+drop table hrRight; 
+create table HrRoleRight(
+	RId int ,
+	rightCode varchar(60)
+)
+select * from HrRoleRight
+drop table HrUserRole; 
+create table HrUserRole(
+	UId int ,
+	RId int
+)
 /* 创建新表 "config_file_first_kind"。                                                             */
 /* "config_file_first_kind" : 一级机构设置                                                          */
 /* 	"ffk_id" : 主键，自动增长列                                                                       */
@@ -34,7 +141,7 @@ create table config_file_first_kind (
 )  
 	
 
-drop table config_file_first_kind; 
+delete from config_file_first_kind where ffk_id=2; 
  
 select * from config_file_first_kind;
 
@@ -59,7 +166,8 @@ create table config_file_second_kind (
 	second_salary_id varchar(1000),
 	second_sale_id varchar(1000)
 )  
-
+select * from config_file_second_kind where
+		first_kind_id='01' order by fsk_id desc
 drop table config_file_second_kind; 
  
 select * from config_file_second_kind;
@@ -164,7 +272,7 @@ create table config_public_char (
 drop table config_public_char; 
  
 select * from config_public_char;
-
+insert into config_public_char(attribute_kind,attribute_name) values('薪酬发放方式','一级机构发放方式');
 insert into config_public_char(attribute_kind,attribute_name) values('国籍','中国');
 insert into config_public_char(attribute_kind,attribute_name) values('国籍','美国');
 insert into config_public_char(attribute_kind,attribute_name) values('民族','汉族');
@@ -218,80 +326,84 @@ create table config_primary_key (
 	primary_key_table varchar(60),
 	primary_key varchar(60),
 	key_name varchar(60),
-	primary_key_status bit
+	primary_key_status int
 )  
 
 drop table config_primary_key; 
  
 select * from config_primary_key;
 
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','firstKindName','I机机构名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','secondKindName','II机机构名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','thirdKindName','III机机构名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanId','档案编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanName','姓名',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanAddress','住址',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanPostcode','邮编',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanProDesignation','职称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanMajorKindName','职位分类名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','hunmaMajorName','职位名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanBank','开户银行',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanAccount','银行帐号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanTelephone','电话',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanMobilephone','手机号码',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanEmail','E-mail',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanHobby','爱好',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanSpeciality','特长',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanSex','性别',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanReligion','宗教信仰',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanParty','政治面貌',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanNationality','国籍',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanRace','民族',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanBirthday','生日',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanBirthplace','出生地',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanAge','年龄',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanEducatedDegree','学历',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanEducatedYears','教育年限',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanEducatedMajor','专业',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanSocietySecurityId','社会保障号码',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanIdCard','身份证号码',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','salaryStandardId','薪酬标准编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','salaryStandardName','薪酬标准',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','majorChangeAmount','调动次数',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','bonusAmount','激励次数',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','trainingAmount','培训次数',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','fileChangAmount','档案变更次数',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','remark','备注',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanHistroyRecords','简历',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','humanFamilyMembership','家庭关系',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('HumanFile','register','登记人',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('SalaryStandard','standardId','薪酬标准编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('SalaryStandard','standardName','薪酬标准名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('SalaryStandard','designer','设计人',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('SalaryGrant','salaryStandardId','薪酬标准编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('SalaryGrant','salaryGrantId','薪酬发放编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','majorKindName','职位分类名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','majorName','职位名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','humanId','员工编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','humanName','职员工姓名',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','bonusItem','激励项目',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','bonusDegree','激励等级',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Bonus','remark','备注',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','majorKindName','职位分类名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','majorName','职位名称',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','humanId','员工编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','humanName','职员工姓名',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','trainingItem','培训项目',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','trainingDegree','培训等级',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('Training','remark','备注',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','firstKindName','I机机构',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','secondKindName','II机机构',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','thirdKindName','III机机构',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','majorKindName','职位分类',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','majorName','职位',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','humanId','员工编号',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','humanName','员工姓名',1);
-insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('MajorChange','changeReason','调动原因',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','first_kind_name','I机机构名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','second_kind_name','II机机构名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','third_kind_name','III机机构名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_id','档案编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_name','姓名',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_address','住址',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_postcode','邮编',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_pro_designation','职称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_major_kind_name','职位分类名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_major_name','职位名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_bank','开户银行',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_account','银行帐号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_telephone','电话',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_mobilephone','手机号码',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_email','E-mail',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_hobby','爱好',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_speciality','特长',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_sex','性别',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_religion','宗教信仰',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_party','政治面貌',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_nationality','国籍',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_race','民族',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_birthday','生日',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_birthplace','出生地',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_age','年龄',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_educated_degree','学历',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_educated_years','教育年限',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_educated_major','专业',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_society_security_id','社会保障号码',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_id_card','身份证号码',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','salary_standard_id','薪酬标准编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','salary_standard_name','薪酬标准',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','major_change_amount','调动次数',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','bonus_amount','激励次数',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','training_amount','培训次数',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','file_chang_amount','档案变更次数',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','remark','备注',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_histroy_records','简历',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','human_family_membership','家庭关系',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('human_file','register','登记人',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_standard','standard_id','薪酬标准编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_standard','standard_name','薪酬标准名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_standard','designer','设计人',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','register','登记人',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','checker','复核人',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','salary_grant_id','薪酬发放编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','salary_standard_sum','标准薪酬总金额',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','salary_paid_sum','实发总金额',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('salary_grant','human_amount','总人数',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','major_kind_name','职位分类名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','major_name','职位名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','human_id','员工编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','human_name','职员工姓名',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','bonus_item','激励项目',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','bonus_degree','激励等级',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('bonus','remark','备注',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','major_kind_name','职位分类名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','major_name','职位名称',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','human_id','员工编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','human_name','职员工姓名',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','training_item','培训项目',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','training_degree','培训等级',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('training','remark','备注',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','first_kind_name','I机机构',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','second_kind_name','II机机构',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','third_kind_name','III机机构',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','major_kind_name','职位分类',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','major_name','职位',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','human_id','员工编号',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','human_name','员工姓名',1);
+insert into config_primary_key(primary_key_table,primary_key,key_name,primary_key_status) values('major_change','change_reason','调动原因',1);
 
 /* 创建新表 "config_major_kind"。                                                                  */
 /* "config_major_kind" : 职位分类设置                                                               */
@@ -302,7 +414,7 @@ create table config_major_kind (
 	mfk_id int primary key auto_increment,
 	major_kind_id char(2),
 	major_kind_name varchar(60)
-)  
+)   
 
 drop table config_major_kind; 
  
@@ -595,7 +707,7 @@ create table human_file(
 	human_family_membership varchar(1000) ,
 	human_picture varchar(255) ,
 	attachment_name varchar(255) ,
-	check_status int ,
+	check_status int ,   
 	register varchar(60) ,
 	checker varchar(60) ,
 	changer varchar(60) ,
@@ -606,18 +718,19 @@ create table human_file(
 	delete_time datetime ,
 	recovery_time datetime ,
 	human_file_status bit 
-)  
+) ;
 
 
-drop table human_file; 
+update human_file set human_file_status=1 where human_id=2;
  
-select * from human_file;
+select * from human_file 
+delete   from human_file where human_id=1
 
 insert into human_file(human_id,first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,human_name,human_address,human_postcode,human_pro_designation,human_major_kind_id,human_major_kind_name,human_major_id,human_major_name,
 human_telephone,human_mobilephone,human_bank,human_account,human_qq,human_email,human_hobby,human_speciality,human_sex,human_religion,human_party,human_nationality,human_race,human_birthday,human_birthplace,human_age,human_educated_degree,human_educated_years,
 human_educated_major,human_society_security_id,human_id_card,remark,salary_standard_id,salary_standard_name,salary_sum,demand_salaray_sum,paid_salary_sum,major_change_amount,bonus_amount,training_amount,file_chang_amount,human_histroy_records,human_family_membership,
 human_picture,attachment_name,check_status,register,checker,changer,regist_time,human_file_status) 
-values('bt0101010001','01','源辰集团','01','源辰软件公司','01','外包组','fantia','湖南衡阳','100091','经理','02','软件开发','01','项目经理',
+values('1','01','源辰集团','01','源辰软件公司','01','外包组','fantia','湖南衡阳','100091','经理','02','软件开发','01','项目经理',
 '','13699175041','建设银行','123456879586584','26284795','26284795@qq.com','舞蹈','java','女','无','党员','中国','汉族','1983-07-01','长沙',24,'本科','16','生物工程','','140105198307010065',
 '','','',0.00,0.00,0.00,0,0,0,0,'','','','',0,'admin','','','2017-05-31',1);
 
@@ -639,6 +752,32 @@ create table salary_standard_details (
 	item_name varchar(60) ,
 	salary float 
 )  
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',1,'出差补助',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',2,'交通补贴',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',3,'住房补贴',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',4,'基本工资',5000);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',5,'年终奖',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100101','高级软件工程师',6,'误餐补助',300);
+
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',1,'出差补助',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',2,'交通补贴',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',3,'住房补贴',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',4,'基本工资',5000);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',5,'年终奖',300);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+values('SB100102','人事部长',6,'误餐补助',350);
+
 drop table salary_standard_details; 
  
 select * from salary_standard_details;
@@ -651,7 +790,7 @@ select * from salary_standard_details;
 /* 	"standard_name" : 薪酬标准单名称                                                                 */
 /* 	"designer" : 制定者名字                                                                        */
 /* 	"register" : 登记人                                                                          */
-/* 	"checker" : 复核人                                                                           */
+/* 	"checker" : 复核人                                                                         */
 /* 	"changer" : 变更人                                                                           */
 /* 	"regist_time" : 登记时间                                                                      */
 /* 	"check_time" : 复核时间                                                                       */
@@ -660,7 +799,13 @@ select * from salary_standard_details;
 /* 	"check_status" : 是否经过复核                                                                   */
 /* 	"change_status" : 更改状态                                                                    */
 /* 	"check_comment" : 复核意见                                                                   */ 
-/* 	"remark" : 备注                                                                             */  
+/* 	"remark" : 备注   */
+   insert into salary_standard(standard_id,standard_name,designer,register,regist_time,salary_sum,check_status,remark)
+   values('SB100101','高级软件工程师','lyh','admin','2017-3-18',6500.00,0,'haha'); 
+   insert into salary_standard(standard_id,standard_name,designer,register,regist_time,salary_sum,check_status,remark)
+   values('SB100102','人事部长','lyh','admin','2017-3-18',6550.00,0,'haha'); 
+   update    salary_standard set check_status=1 where ssd_id=2
+   select * from salary_standard
 create table salary_standard ( 
 	ssd_id int primary key auto_increment,
 	standard_id varchar(30) ,
@@ -677,7 +822,7 @@ create table salary_standard (
 	change_status int ,
 	check_comment varchar(1000),
 	remark varchar(1000) 
-)  
+)  insert into salary_standard values();
 drop table salary_standard; 
  
 select * from salary_standard;
@@ -806,7 +951,7 @@ select * from training;
 /* 	"checker" : 复核人                                                                           */
 /* 	"regist_time" : 登记时间                                                                      */
 /* 	"check_time" : 复核时间                                                                       */  
-create table major_change ( 
+create table major_change (  
 	mch_id int primary key auto_increment,
 	first_kind_id char(2) ,
 	first_kind_name varchar(60) ,
@@ -854,7 +999,7 @@ select * from major_change;
 /* "salary_grant" : 薪酬发放登记表                                                                   */
 /* 	"sgr_id" : 主键，自动增长列                                                                       */
 /* 	"salary_grant_id" : 薪酬发放编号                                                                */
-/* 	"salary_standard_id" : 薪酬标准单编号                                                            */
+/* 	                                                        */
 /* 	"first_kind_id" : 一级机构编号                                                                  */
 /* 	"first_kind_name" : 一级机构名称                                                                */
 /* 	"second_kind_id" : 二级机构编号                                                                 */
@@ -872,7 +1017,6 @@ select * from major_change;
 create table salary_grant ( 
 	sgr_id int primary key auto_increment,
 	salary_grant_id varchar(30) ,
-	salary_standard_id varchar(30) ,
 	first_kind_id char(2) ,
 	first_kind_name varchar(60) ,
 	second_kind_id char(2) ,
@@ -891,12 +1035,15 @@ create table salary_grant (
 
 drop table salary_grant; 
  
-select * from salary_grant;
+select * from salary_grant where 1=1;
+select * from salary_grant where salary_grant_id='SG1000001';
+ 
 
 /* 创建新表 "salary_grant_details"。                                                               */
 /* "salary_grant_details" : 薪酬发放详细信息                                                          */
 /* 	"grd_id" : 主键，自动增长列                                                                       */
-/* 	"salary_grant_id" : 薪酬发放编号                                                                */
+/* 	"salary_grant_id" : 薪酬发放编号    
+ * "salary_standard_id" : 薪酬标准单编号                                                                */
 /* 	"human_id" : 档案编号                                                                         */
 /* 	"human_name" : 姓名                                                                         */
 /* 	"bouns_sum" : 奖励金额                                                                        */
@@ -907,6 +1054,7 @@ select * from salary_grant;
 create table salary_grant_details ( 
 	grd_id int primary key auto_increment,
 	salary_grant_id varchar(30) ,
+	salary_standard_id varchar(30) ,
 	human_id varchar(30) ,
 	human_name varchar(60) ,
 	bouns_sum float ,
@@ -915,10 +1063,12 @@ create table salary_grant_details (
 	salary_standard_sum float ,
 	salary_paid_sum float 
 )  
-
+select * from salary_grant_details where salary_grant_id='SG1000004' and human_id= 2 
+			
 drop table salary_grant_details; 
  
 select * from salary_grant_details;
+
 
 /* 创建新表 "engage_major_release"。                                                               */
 /* "engage_major_release" : 职位发表登记表                                                           */
@@ -965,7 +1115,7 @@ create table engage_major_release (
 	engage_required varchar(1000) 
 )  
 drop table engage_major_release; 
- 
+
 select * from engage_major_release;
 
 /* 创建新表 "engage_exam_details"。                                                                */
@@ -1013,8 +1163,9 @@ create table engage_exam (
 	limite_time int 
 )  
 drop table engage_exam; 
- 
-select * from engage_exam;
+ select * from engage_exam
+ select * from engage_exam where major_kind_id=5 and major_id=1 order by rand() limit 1
+select major_kind_name,major_name,count(*) as ExamCount from engage_exam   group by (major_name);
 
 /* 创建新表 "engage_answer"。                                                                      */
 /* "engage_answer" : 考试答题登记表                                                                  */
@@ -1046,10 +1197,10 @@ create table engage_answer (
 	major_name char(10) ,
 	test_time datetime ,
 	use_time varchar(20) ,
-	total_point numeric(5,2) 
-)  
+	total_point float 
+)  select * from engage_answer where 1=1 and total_point <=0
 drop table engage_answer; 
- 
+ select * from engage_answer where total_point=0.0
 select * from engage_answer;
 
 /* 创建新表 "engage_answer_details"。                                                              */
@@ -1110,8 +1261,7 @@ create table engage_subjects (
 )  
 drop table engage_subjects; 
  
-select * from engage_subjects;
-
+select *  from engage_subjects group by first_kind_name;
 /* 创建新表 "engage_resume"。                                                                      */
 /* "engage_resume" : 简历管理                                                                     */
 /* 	"res_id" : 主键，自动增长列                                                                       */
@@ -1136,7 +1286,7 @@ select * from engage_subjects;
 /* 	"human_race" : 民族                                                                         */
 /* 	"human_birthday" : 生日                                                                     */
 /* 	"human_age" : 年龄                                                                          */
-/* 	"human_educated_degree" : 教育程度                                                            */
+/* 	"human_educated_degree" : 学历                                                            */
 /* 	"human_educated_years" : 教育年限                                                             */
 /* 	"human_educated_major" : 专业                                                               */
 /* 	"human_college" : 毕业院校                                                                    */
@@ -1194,12 +1344,12 @@ create table engage_resume (
 	human_college varchar(60) ,
 	human_idcard varchar(60) ,
 	human_birthplace varchar(200) ,
-	demand_salary_standard numeric(15,2) ,
+	demand_salary_standard varchar(100) ,
 	human_history_records varchar(1000) ,
 	remark varchar(1000) ,
 	recomandation varchar(1000) ,
-	human_picture varchar(60) ,
-	attachment_name varchar(60) ,
+	human_picture varchar(255) ,
+	attachment_name varchar(255) ,
 	check_status int ,
 	register varchar(60) ,
 	regist_time datetime ,
@@ -1214,11 +1364,11 @@ create table engage_resume (
 	pass_regist_time datetime ,
 	pass_checker varchar(60) ,
 	pass_check_time datetime ,
-	pass_check_status int ,
+	pass_check_status int,
 	pass_checkComment varchar(60) ,
 	pass_passComment varchar(60) 
 )
-  
+select * from engage_resume where pass_check_status=1  
 drop table engage_resume; 
  
 select * from engage_resume;
@@ -1251,10 +1401,10 @@ select * from engage_resume;
 /* 	"check_status" : 筛选状态                                                                     */  
 create table engage_interview ( 
 	ein_id int primary key auto_increment,
-	human_name varchar(60) ,
-	interview_amount int ,
-	human_major_kind_id char(2) ,
-	human_major_kind_name varchar(30) ,
+	human_name varchar(60),
+	interview_amount int,
+	human_major_kind_id char(2),
+	human_major_kind_name varchar(30),
 	human_major_id char(2) ,
 	human_major_name varchar(30) ,
 	image_degree varchar(20) ,
@@ -1263,19 +1413,18 @@ create table engage_interview (
 	response_speed_degree varchar(20) ,
 	EQ_degree varchar(20) ,
 	IQ_degree varchar(20) ,
-	multi_quality_degree varchar(20) ,
+	multi_quality_degree varchar(20),
 	register varchar(60) ,
 	checker varchar(60) ,
 	registe_time datetime ,
 	check_time datetime ,
 	resume_id int ,
 	results varchar(20) ,
-	interview_comment varchar(1000) ,
+	interview_comment varchar(1000),
 	check_comment varchar(1000) ,
 	interview_status int ,
 	check_status int 
 )  
-drop table engage_interview; 
- 
-select * from engage_interview;
+drop table engage_interview;
 
+select * from engage_interview;

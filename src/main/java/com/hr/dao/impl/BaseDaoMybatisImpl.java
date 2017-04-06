@@ -86,7 +86,7 @@ private String mapperLocation="com.yc.mapper.";
 
 	@Override
 	public int findFunc(T t, String sqlId) {
-		return super.getSqlSession().selectOne(   this.getMapperId(t, sqlId)  );
+		return super.getSqlSession().selectOne(   this.getMapperId(t, sqlId),t  );
 	}
 
 	@Override

@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询所有-->
 	<select id="getAllConfigFileSecondKinds" resultType="ConfigFileSecondKind" >
-		select * from config_file_second_kind 
+		select * from config_file_second_kind order by fsk_id  desc 
 	</select>
 
 	<!-- 插入信息 -->
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getConfigFileSecondKindByFirstId" resultType="ConfigFileSecondKind"
 		parameterType="ConfigFileSecondKind">
 		select * from config_file_second_kind where
-		first_kind_id=#{first_kind_id}
+		first_kind_id=#{first_kind_id} order by fsk_id desc
 	</select>
 
 </mapper>

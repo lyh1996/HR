@@ -2,6 +2,8 @@ package com.hr.bean;
 
 import java.io.Serializable;
 
+import com.hr.web.utils.Page;
+
 //二级机构实体
 public   class ConfigFileSecondKind  implements  Serializable {
 

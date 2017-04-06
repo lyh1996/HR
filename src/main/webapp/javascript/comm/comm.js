@@ -1,3 +1,9 @@
+function toSubmit()
+{
+		document.forms[0].action = document.forms[0].action + "?operate=toSubmit";
+		document.forms[0].submit();
+}
+
 function doUpLoadPhoto()
 {
 	document.forms[0].action = document.forms[0].action + "?operate=doUpLoadPhoto";
@@ -55,6 +61,7 @@ function finish3()
 	document.forms[0].action = document.forms[0].action + "?operate=doEdit";
 	document.forms[0].submit();
 }
+ 
 function toAdd()
 {
 		document.forms[0].action = document.forms[0].action + "?operate=toAdd";

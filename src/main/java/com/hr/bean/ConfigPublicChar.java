@@ -2,6 +2,8 @@ package com.hr.bean;
 
 import java.io.Serializable;
 
+import com.hr.web.utils.Page;
+
 public class ConfigPublicChar implements Serializable{//公共属性设置
  
 	private static final long serialVersionUID = -3210728374951970292L;

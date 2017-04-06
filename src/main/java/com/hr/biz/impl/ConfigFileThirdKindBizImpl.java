@@ -96,6 +96,13 @@ public class ConfigFileThirdKindBizImpl implements ConfigFileThirdKindBiz {
 		 List<ConfigFileThirdKind>list=this.baseDao.findAll(configFileThirdKind, "getInfoBySFId");
 		 return list ;
 	}
+
+
+	@Override
+	public List<ConfigFileThirdKind> getAllInfo() {
+		List<ConfigFileThirdKind> list=this.baseDao.findAll(new ConfigFileThirdKind(), "getAllInfo");
+		return list;
+	}
 	
 	 
 }

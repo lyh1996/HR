@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from config_major_kind limit #{page.startPos},#{page.pageSize}  
 	</select>
 	<select id="getAllMajors" resultType="ConfigMajorKind"  >
-		select * from config_major_kind 
+		select * from config_major_kind order by mfk_id desc
 	</select>
 	<!--查询总记录条数-->
     <select id="getMajorCount" resultType="int" >

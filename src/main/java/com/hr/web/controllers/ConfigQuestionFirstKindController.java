@@ -43,7 +43,12 @@ public class ConfigQuestionFirstKindController {
 		} else if ("doAdd".equals(opreate)) {// 完成添加操作
 			ConfigQuestionFirstKind c = this.configQuestionFirstKindBiz.getINfoByName(configQuestionFirstKind);
 			if (c == null) {
-				configQuestionFirstKind.setFirst_kind_id(this.configQuestionFirstKindBiz.getCount()+1);
+				List<ConfigQuestionFirstKind> list=this.configQuestionFirstKindBiz.getAlls();
+				Integer first_kind_id=1;
+				if(list.size()>0){
+					first_kind_id=list.get(0).getQfk_id()+1;
+				}
+				configQuestionFirstKind.setFirst_kind_id(first_kind_id);
 				this.configQuestionFirstKindBiz.save(configQuestionFirstKind);
 				return "config/exam/first_question_kind_register_success";
 			} else {
@@ -57,8 +62,8 @@ public class ConfigQuestionFirstKindController {
 			Integer id = Integer.parseInt("" + request.getParameter("id"));
 			ConfigQuestionSecondKind c=new ConfigQuestionSecondKind();
 			c.setFirst_kind_id(id);
-			 c=this.configQuestionSecondKindBiz.getInfoById(c).get(0);
-			 if(c==null){
+			 List<ConfigQuestionSecondKind> list=this.configQuestionSecondKindBiz.getInfoById(c);
+			 if(list.size()==0){
 				 configQuestionFirstKind.setFirst_kind_id(id);
 				 this.configQuestionFirstKindBiz.delInfo(configQuestionFirstKind);
 				 return "config/exam/first_question_kind_delete_success";

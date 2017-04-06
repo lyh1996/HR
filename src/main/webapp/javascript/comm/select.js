@@ -6,7 +6,7 @@ function changelocation(select2,locationid)
   for (var i=0;i < subcat.length; i++)
   {
  	if(locid==""||locid==null){select2.options[select2.length]=
- 			 new Option(subcat[i][1],subcat[i][3]);}//Èç¹ûselect1Îª¿Õ£¬Ôòselect2Ñ¡ÔñÈ«²¿Öµ
+ 			 new Option(subcat[i][1],subcat[i][3]);}//å¦‚æžœselect1ä¸ºç©ºï¼Œåˆ™select2é€‰æ‹©å…¨éƒ¨å€¼
     else if (subcat[i][2] == locid)
     { 
         select2.options[select2.length] = new Option(subcat[i][1],subcat[i][3]);
@@ -38,7 +38,7 @@ function changelocation(select2,locationid)
   for (var k=0;k < subcat2.length; k++)
   {
  		 if(locid==""||locid==null){select5.options[select5.length]=
- 			 new Option(subcat2[k][1],subcat2[k][1]);}//Èç¹ûselect1Îª¿Õ£¬Ôòselect5Ñ¡ÔñÈ«²¿Öµ
+ 			 new Option(subcat2[k][1],subcat2[k][1]);}//å¦‚æžœselect1ä¸ºç©ºï¼Œåˆ™select5é€‰æ‹©å…¨éƒ¨å€¼
   else if (subcat2[k][2] == locid)
   { 
    select5.options[select5.length] = new Option(subcat2[k][1], 

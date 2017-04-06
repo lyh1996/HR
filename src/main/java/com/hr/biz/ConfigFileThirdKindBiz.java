@@ -8,6 +8,7 @@ public  interface ConfigFileThirdKindBiz {
 	/*取得记录条数信息*/
 	 int getThirdKindCount();
 	 List<ConfigFileThirdKind> getAll(ConfigFileThirdKind configFileThirdKind);//获得所有
+	 List<ConfigFileThirdKind> getAllInfo();//获得所有
 		//插入
 		public void  saveConfigFileThirdKind(ConfigFileThirdKind configFileThirdKind);
 	 

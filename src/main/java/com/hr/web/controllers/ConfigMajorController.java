@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.hr.bean.ConfigMajor;
 import com.hr.bean.ConfigMajorKind;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigMajorBiz;
 import com.hr.biz.ConfigMajorKindBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigMajorController {
@@ -61,11 +61,15 @@ public class ConfigMajorController {
 			major_kind_name=major_kind_name.substring(major_kind_name.lastIndexOf("/")+1);
 			ConfigMajor configMajor2 = this.configMajorBiz.getMajorByName(Name,major_kind_name);
 			if (configMajor2 == null) {
-				Integer major_id= this.configMajorBiz.getMajorByKindName(major_kind_name).size()+1;
+				List<ConfigMajor> list=this.configMajorBiz.getMajorByKindId(major_kind_id);
+				Integer major_id=1;
+				if(list.size()>0){
+					major_id=list.get(0).getMajor_id()+1;
+				}
 				 configMajor.setMajor_kind_id(major_kind_id);
 				 configMajor.setMajor_kind_name(major_kind_name);
 				 configMajor.setMajor_id(major_id);
-				 System.out.println(configMajor);
+				 
 			 this.configMajorBiz.saveConfigMajor(configMajor);
 				return "config/file/major_register_success";
 			} else {

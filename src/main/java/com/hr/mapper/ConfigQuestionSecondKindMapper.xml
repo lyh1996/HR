@@ -14,12 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAll" resultType="ConfigQuestionSecondKind" parameterType="ConfigQuestionSecondKind">
 		select * from config_question_second_kind order by first_kind_name  desc limit #{page.startPos},#{page.pageSize}
 	</select>
+    <!-- 查询所有职位 -->
+	<select id="getAllInfo" resultType="ConfigQuestionSecondKind"  >
+		select * from config_question_second_kind
+	</select>
     
     <!-- 根据ID查询数据 -->
 	<select id="getInfoById" resultType="ConfigQuestionSecondKind"
 		parameterType="ConfigQuestionSecondKind">
 		select * from config_question_second_kind where
-		first_kind_id=#{first_kind_id}
+		first_kind_id=#{first_kind_id} order by qsk_id desc
 	</select>
 	
 	<!-- 根据名查找 -->

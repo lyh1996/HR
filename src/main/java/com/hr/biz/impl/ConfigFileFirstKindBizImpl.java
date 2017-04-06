@@ -43,7 +43,7 @@ public class ConfigFileFirstKindBizImpl implements ConfigFileFirstKindBiz {
 	@Override
 	public ConfigFileFirstKind getConfigFileFirstKindById(Integer id) {
 		ConfigFileFirstKind configFileFirstKind=new ConfigFileFirstKind();
-		configFileFirstKind.setFfkId(id);
+		configFileFirstKind.setFirstKindId(id);
 		 List<ConfigFileFirstKind>list=this.baseDao.findAll(configFileFirstKind, "getConfigFileFirstKindById");
 		 return list !=null&&list.size()>0 ? list.get(0) : null ;
 	}

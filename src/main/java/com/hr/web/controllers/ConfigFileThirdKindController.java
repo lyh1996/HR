@@ -7,15 +7,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.hr.bean.ConfigFileFirstKind;
 import com.hr.bean.ConfigFileSecondKind;
 import com.hr.bean.ConfigFileThirdKind;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigFileFirstKindBiz;
 import com.hr.biz.ConfigFileSecondKindBiz;
 import com.hr.biz.ConfigFileThirdKindBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigFileThirdKindController {
@@ -63,9 +66,6 @@ public class ConfigFileThirdKindController {
 		} else if ("toAdd".equals(opreate)) {// 添加操作
 			List<ConfigFileFirstKind> configFileFirstKinds = this.configFileFirstKindBiz.getAllConfigFileFirstKinds();
 			model.addAttribute("list", configFileFirstKinds);
-			List<ConfigFileSecondKind> configFileSecondKinds = this.configFileSecondKindBiz.getAll();
-			model.addAttribute("list", configFileFirstKinds);
-			model.addAttribute("list2", configFileSecondKinds);
 			return "config/file/third_kind_register";
 		} else if ("doAdd".equals(opreate)) {// 确认添加
 			String first_kind_name=configFileThirdKind.getFirst_kind_name();
@@ -115,4 +115,6 @@ public class ConfigFileThirdKindController {
 		}
 		return null;
 	}
+	
+ 
 }

@@ -56,7 +56,12 @@ public class ConfigFileFirstKindController {
 		System.out.println(configFileFirstKind);
 		ConfigFileFirstKind configFileFirstKind2=this.configFileFirstKindBiz.getConfigFileFirstKindByName(configFileFirstKind);
 		if (configFileFirstKind2==null) {
-			configFileFirstKind.setFirstKindId(num+1);
+			List<ConfigFileFirstKind> list=this.configFileFirstKindBiz.getAllConfigFileFirstKinds();
+			Integer first_kind_id=1;
+			if(list.size()>0){
+				first_kind_id=list.get(0).getFfkId()+1;
+			}
+			configFileFirstKind.setFirstKindId(first_kind_id);
 		//	System.out.println(configFileFirstKind);
 			this.configFileFirstKindBiz.saveConfigFileFirstKind(configFileFirstKind);
 			
@@ -71,6 +76,7 @@ public class ConfigFileFirstKindController {
 	@RequestMapping(value="/EditConfigFileFirstKind/{id}")
 	public String ToEditConfigFileFirstKind(Model model ,@PathVariable Integer id){
 		logger.info("ToEditConfigFileFirstKind called....");
+		//System.out.println(id);
 		ConfigFileFirstKind configFileFirstKind=this.configFileFirstKindBiz.getConfigFileFirstKindById(id);
 		model.addAttribute("configFileFirstKind",configFileFirstKind);
 		System.out.println(configFileFirstKind);
@@ -80,8 +86,13 @@ public class ConfigFileFirstKindController {
 	//确定更改信息
 	@RequestMapping(value="updateconfigfilefirstkinds")
 	public String updateconfigfilefirstkinds(ConfigFileFirstKind configFileFirstKind){
+		ConfigFileFirstKind configFileFirstKind2=this.configFileFirstKindBiz.getConfigFileFirstKindByName(configFileFirstKind);
+		if(configFileFirstKind2==null){
 		this.configFileFirstKindBiz.updateConfigFileFirstKind(configFileFirstKind);
 		return "config/file/first_kind_change_success";
+		}else{
+			return "config/file/first_kind_change_failure";
+		}
 	}
 	//删除页面
 	@RequestMapping(value="toDelConfigFileFirstKind/{id}")
@@ -92,10 +103,11 @@ public class ConfigFileFirstKindController {
 	//确认删除
 	@RequestMapping(value="dodeleteconfigfilefirstkind/{id}")
 	public String  dodeleteconfigfilefirstkind(@PathVariable Integer id){
-		ConfigFileSecondKind c2=this.configFileSecondKindBiz.getConfigFileSecondKindByFirstId(id).get(0);
-		if(c2==null){
+		System.out.println(id);
+		List<ConfigFileSecondKind> c2=this.configFileSecondKindBiz.getConfigFileSecondKindByFirstId(id);
+		if(c2.size()==0){
 		 ConfigFileFirstKind configFileFirstKind=new ConfigFileFirstKind();
-		 configFileFirstKind.setFfkId(id);
+		 configFileFirstKind.setFirstKindId(id);
 		 this.configFileFirstKindBiz.delConfigFileFirstKind(configFileFirstKind);
 		return "config/file/first_kind_delete_success";
 		}else{

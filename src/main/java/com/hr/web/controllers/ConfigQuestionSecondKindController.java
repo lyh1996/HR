@@ -17,7 +17,6 @@ import com.hr.bean.ConfigMajorKind;
 import com.hr.bean.ConfigPublicChar;
 import com.hr.bean.ConfigQuestionFirstKind;
 import com.hr.bean.ConfigQuestionSecondKind;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigFileFirstKindBiz;
 import com.hr.biz.ConfigFileSecondKindBiz;
 import com.hr.biz.ConfigFileThirdKindBiz;
@@ -25,6 +24,7 @@ import com.hr.biz.ConfigMajorBiz;
 import com.hr.biz.ConfigMajorKindBiz;
 import com.hr.biz.ConfigQuestionFirstKindBiz;
 import com.hr.biz.ConfigQuestionSecondKindBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigQuestionSecondKindController {
@@ -74,7 +74,12 @@ public class ConfigQuestionSecondKindController {
 			if (c == null) {
 				configQuestionSecondKind.setFirst_kind_id(first_kind_id);
 				configQuestionSecondKind.setFirst_kind_name(first_kind_name);
-				Integer second_id=this.configQuestionSecondKindBiz.getInfoById(configQuestionSecondKind).size()+1;
+				List<ConfigQuestionSecondKind> list=this.configQuestionSecondKindBiz.getInfoById(configQuestionSecondKind);
+				
+				Integer second_id=1;
+				 if(list.size()>0){
+					 second_id=list.get(0).getSecond_kind_id()+1;
+				 }
 				configQuestionSecondKind.setSecond_kind_id(second_id);
 				  this.configQuestionSecondKindBiz.saveInfo(configQuestionSecondKind);
 				return "config/exam/second_question_kind_register_success";

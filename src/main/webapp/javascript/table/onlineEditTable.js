@@ -1,6 +1,6 @@
-//È«¾Ö±äÁ¿
-var inputFocus;//¸Ã±äÁ¿¼ÇÂ¼µ±Ç°½¹µãµÄinput
-var bKeyDown=false;//¼ÇÂ¼¼üÅÌ±»°´ÏÂµÄ×´Ì¬£¬µ±ÓĞ¼üÅÌ°´ÏÂÊ±ÆäÖµÎªtrue
+//å…¨å±€å˜é‡
+var inputFocus;//è¯¥å˜é‡è®°å½•å½“å‰ç„¦ç‚¹çš„input
+var bKeyDown=false;//è®°å½•é”®ç›˜è¢«æŒ‰ä¸‹çš„çŠ¶æ€ï¼Œå½“æœ‰é”®ç›˜æŒ‰ä¸‹æ—¶å…¶å€¼ä¸ºtrue
 
 function setRowClass(obj,className){
  obj.className=className;
@@ -15,19 +15,19 @@ function setRowClass(obj,className){
 function lightonRow(obj){
  if(obj.tagName!="TR")return;
 
- //½«ËùÓĞÎ´±»Ñ¡ÖĞµÄĞĞÈ¡Ïû¸ßÁÁ¶ÈÏÖÊµ
+ //å°†æ‰€æœ‰æœªè¢«é€‰ä¸­çš„è¡Œå–æ¶ˆé«˜äº®åº¦ç°å®
         var tableOnlineEdit=obj.parentElement;
         while(tableOnlineEdit.tagName!="TABLE")tableOnlineEdit=tableOnlineEdit.parentElement;
  var objsCheckBox=tableOnlineEdit.all("checkLine");
  for(var iCheckBox=1;iCheckBox<objsCheckBox.length;iCheckBox++)
   if(objsCheckBox[iCheckBox].checked==false) setRowClass(tableOnlineEdit.rows[iCheckBox+1],"tableData");
 
- //µ±Ç°µã»÷ĞĞ¸ßÁÁ¶ÈÏÔÊ¾
+ //å½“å‰ç‚¹å‡»è¡Œé«˜äº®åº¦æ˜¾ç¤º
  setRowClass(obj,"tableDataHit");
 }
 
 
-//µÃµ½objµÄÉÏ¼¶ÔªËØTagName
+//å¾—åˆ°objçš„ä¸Šçº§å…ƒç´ TagName
 function getUpperObj(obj,TagName){
  var strTagName=TagName.toUpperCase();
  var objUpper=obj.parentElement;
@@ -46,7 +46,7 @@ function getPosition(obj,pos){
    return t;
 }
 function showInputSelect(obj,objShow){
- inputFocus=obj;//¼ÇÂ¼µ±Ç°½¹µãinputÖÁÈ«¾Ö±äÁ¿
+ inputFocus=obj;//è®°å½•å½“å‰ç„¦ç‚¹inputè‡³å…¨å±€å˜é‡
  objShow.style.top =getPosition(obj,"offsetTop")+obj.offsetHeight+2;
  objShow.style.left=getPosition(obj,"offsetLeft");
  objShow.style.width=obj.offsetWidth;
@@ -84,7 +84,7 @@ function addRow(objTable){
  tbodyOnlineEdit.insertBefore(elm);
 }
 
-//½«Ö¸¶¨Êı¾İĞĞµÄobjRowµÄÊäÈëÓòstrNameÉèÖÃÎªstrValue
+//å°†æŒ‡å®šæ•°æ®è¡Œçš„objRowçš„è¾“å…¥åŸŸstrNameè®¾ç½®ä¸ºstrValue
 function setInputValue(objRow,strName,strValue){
  var objs=objRow.all;
  for(var i=0;i<objs.length;i++){
@@ -92,7 +92,7 @@ function setInputValue(objRow,strName,strValue){
  }
 }
 
-//Ìí¼ÓÒ»¸öÊµÀıÊı¾İĞĞ
+//æ·»åŠ ä¸€ä¸ªå®ä¾‹æ•°æ®è¡Œ
 function addInstanceRow(objTable,Names,Values){
  var tbodyOnlineEdit=objTable.getElementsByTagName("TBODY")[0];
  var theadOnlineEdit=objTable.getElementsByTagName("THEAD")[0];
@@ -103,21 +103,21 @@ function addInstanceRow(objTable,Names,Values){
  tbodyOnlineEdit.insertBefore(elm);
 }
 
-//½«È«²¿¸´Ñ¡¿òÉèÎªÖ¸¶¨Öµ
+//å°†å…¨éƒ¨å¤é€‰æ¡†è®¾ä¸ºæŒ‡å®šå€¼
 function setOnlineEditCheckBox(obj,value){
  var tbodyOnlineEdit=obj.getElementsByTagName("TBODY")[0];
  for (var i=tbodyOnlineEdit.children.length-1; i>=0 ; i-- )
   tbodyOnlineEdit.children[i].firstChild.firstChild.checked=value;
 }
 
-//Îª¶¯Ì¬±í¸ñÔö¼Ó¼üÅÌµ¼º½¹¦ÄÜ,ÒªÊ¹ÓÃ¸Ã¹¦ÄÜÇëÔÚ±í¸ñ¶¨ÒåÖĞÔö¼ÓÊÂ¼ş´¦ÀíonKeyDown="navigateKeys()" onKeyUp="setKeyDown(false)"
-//ÓĞÒ»µãµãÎÊÌâ£¬µ±°´ÏÂ"->"Ìø×ªµ½ÏÂÒ»ÊäÈëÓòÊ±£¬¹â±êÏÔÊ¾ÔÚµÚÒ»¸ö×Ö·ûÖ®ºó
-//½¨ÒéÈÔÈ»Ê¹ÓÃTab¼üÌø×ª
+//ä¸ºåŠ¨æ€è¡¨æ ¼å¢åŠ é”®ç›˜å¯¼èˆªåŠŸèƒ½,è¦ä½¿ç”¨è¯¥åŠŸèƒ½è¯·åœ¨è¡¨æ ¼å®šä¹‰ä¸­å¢åŠ äº‹ä»¶å¤„ç†onKeyDown="navigateKeys()" onKeyUp="setKeyDown(false)"
+//æœ‰ä¸€ç‚¹ç‚¹é—®é¢˜ï¼Œå½“æŒ‰ä¸‹"->"è·³è½¬åˆ°ä¸‹ä¸€è¾“å…¥åŸŸæ—¶ï¼Œå…‰æ ‡æ˜¾ç¤ºåœ¨ç¬¬ä¸€ä¸ªå­—ç¬¦ä¹‹å
+//å»ºè®®ä»ç„¶ä½¿ç”¨Tabé”®è·³è½¬
 function navigateKeys(){
  if(bKeyDown) return;
  bKeyDown=true;
  var elm=event.srcElement;
- if(elm.tagName!="INPUT") return;//Ä¬ÈÏÖ»¶ÔINPUT½øĞĞµ¼º½£¬¿É×ÔĞĞÉè¶¨
+ if(elm.tagName!="INPUT") return;//é»˜è®¤åªå¯¹INPUTè¿›è¡Œå¯¼èˆªï¼Œå¯è‡ªè¡Œè®¾å®š
 
  var objTD=elm.parentElement;
  var objTR=objTD.parentElement;
@@ -133,8 +133,8 @@ function navigateKeys(){
    if(getCursorPosition(elm)>0)return;
    nCell--;
    if(nCell==0){
-    nRow--;//Ìø×ªµ½ÉÏÒ»ĞĞ
-    nCell=objTR.cells.length-1;//×îºóÒ»ÁĞ
+    nRow--;//è·³è½¬åˆ°ä¸Šä¸€è¡Œ
+    nCell=objTR.cells.length-1;//æœ€åä¸€åˆ—
    }
    break;
   case 38://^
@@ -144,26 +144,26 @@ function navigateKeys(){
    if(getCursorPosition(elm)<elm.value.length)return;
    nCell++;
    if(nCell==objTR.cells.length){    
-    nRow++;//Ìø×ªµ½ÏÂÒ»ĞĞÊ×Î»ÖÃ
-    nCell=1;//µÚÒ»ÁĞ
+    nRow++;//è·³è½¬åˆ°ä¸‹ä¸€è¡Œé¦–ä½ç½®
+    nCell=1;//ç¬¬ä¸€åˆ—
    }
    break;
   case 40://\|/
    nRow++;
    if(nRow==objTBODY.rows.length){    
-    addRow(objTable);//Ôö¼ÓÒ»¸ö¿ÕĞĞ
-    nCell=1;//Ìø×ªµ½µÚÒ»ÁĞ
+    addRow(objTable);//å¢åŠ ä¸€ä¸ªç©ºè¡Œ
+    nCell=1;//è·³è½¬åˆ°ç¬¬ä¸€åˆ—
    }
    break;
   case 13://Enter
    nCell++;
    if(nCell==objTR.cells.length){    
-    nRow++;//Ìø×ªµ½ÏÂÒ»ĞĞÊ×Î»ÖÃ
-    nCell=1;//µÚÒ»ÁĞ
+    nRow++;//è·³è½¬åˆ°ä¸‹ä¸€è¡Œé¦–ä½ç½®
+    nCell=1;//ç¬¬ä¸€åˆ—
    }
    if(nRow==objTBODY.rows.length){    
-    addRow(objTable);//Ôö¼ÓÒ»¸ö¿ÕĞĞ
-    nCell=1;//Ìø×ªµ½µÚÒ»ÁĞ
+    addRow(objTable);//å¢åŠ ä¸€ä¸ªç©ºè¡Œ
+    nCell=1;//è·³è½¬åˆ°ç¬¬ä¸€åˆ—
    }
 
    break;
@@ -176,7 +176,7 @@ function navigateKeys(){
  objTD=objTR.cells[nCell];
  var objs=objTD.all;
  for(var i=0;i<objs.length;i++){
-  //´Ë´¦Ê¹ÓÃojbs[0],Êµ¼ÊÊ¹ÓÃÊ±¿ÉÄÜĞèÒª¼ÓÒÔĞŞ¸Ä,»ò¼ÓÈëÆäËûÌõ¼ş
+  //æ­¤å¤„ä½¿ç”¨ojbs[0],å®é™…ä½¿ç”¨æ—¶å¯èƒ½éœ€è¦åŠ ä»¥ä¿®æ”¹,æˆ–åŠ å…¥å…¶ä»–æ¡ä»¶
   try{
    lightonRow(objTR);
    objs[i].focus();//setCursorPosition(objs[i],-1);
@@ -189,13 +189,13 @@ function navigateKeys(){
 }
 
 
-//ÉèÖÃ¼üÅÌ×´Ì¬£¬¼´bKeyDownµÄÖµ
+//è®¾ç½®é”®ç›˜çŠ¶æ€ï¼Œå³bKeyDownçš„å€¼
 function setKeyDown(status){
  bKeyDown=status;
 }
 
 
-//µÃµ½¹â±êµÄÎ»ÖÃ
+//å¾—åˆ°å…‰æ ‡çš„ä½ç½®
 function getCursorPosition(obj){
  var qswh="@#%#^&#*$"
  obj.focus();
@@ -208,7 +208,7 @@ function getCursorPosition(obj){
 }
 
 
-//ÉèÖÃ¹â±êÎ»ÖÃ
+//è®¾ç½®å…‰æ ‡ä½ç½®
 function setCursorPosition(obj,position){
  range=obj.createTextRange(); 
  range.collapse(true); 

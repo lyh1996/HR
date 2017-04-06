@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hr.bean.ConfigFileFirstKind;
 import com.hr.bean.ConfigFileSecondKind;
 import com.hr.bean.ConfigFileThirdKind;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigFileFirstKindBiz;
 import com.hr.biz.ConfigFileSecondKindBiz;
 import com.hr.biz.ConfigFileThirdKindBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigFileSecondKindController {
@@ -73,7 +73,12 @@ public class ConfigFileSecondKindController {
 					.getConfigFileSecondKindByName(configFileSecondKind);
 			if (configFileSecondKind2 == null) {
 				configFileSecondKind.setfirst_kind_name(first_kind_name);
-				configFileSecondKind.setsecond_kind_id(this.configFileSecondKindBiz.getConfigFileSecondKindByFirstId(first_kind_id).size()+1);
+				List<ConfigFileSecondKind> list=this.configFileSecondKindBiz.getConfigFileSecondKindByFirstId(first_kind_id);
+				Integer second_kind_id=1;
+				if(list.size()>0){
+					second_kind_id=list.get(0).getsecond_kind_id()+1;
+				}
+				configFileSecondKind.setsecond_kind_id(second_kind_id);
 				this.configFileSecondKindBiz.saveConfigFileSecondKind(configFileSecondKind);
 				// System.out.println(configFileSecondKind);
 				return "config/file/second_kind_register_success";

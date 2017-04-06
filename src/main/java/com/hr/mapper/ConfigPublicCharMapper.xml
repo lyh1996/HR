@@ -38,5 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getCharCount" resultType="int" >
         select count(*) from config_public_char 
     </select>
+    
+    
  
 </mapper>

@@ -30,11 +30,15 @@
 	<!-- 静态资源处理方式 -->
 	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+	<mvc:resources location="/script/" mapping="/script/**"></mvc:resources>
+	<mvc:resources location="/ExtJS/" mapping="/ExtJS/**"></mvc:resources>
 	<mvc:resources location="/javascript/" mapping="/javascript/**"></mvc:resources>
 	<mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
 	<mvc:resources location="/files/" mapping="/files/**"></mvc:resources>
 	
-	 <!-- 文件上传配置 -->
- 
+ 	 <!-- 文件上传配置 -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="200000000" />
+	</bean>
 
 </beans>

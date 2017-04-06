@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hr.bean.ConfigFileFirstKind;
 import com.hr.bean.ConfigFileThirdKind;
 import com.hr.bean.ConfigPublicChar;
+import com.hr.bean.Training;
 import com.hr.biz.ConfigFileFirstKindBiz;
 import com.hr.biz.ConfigFileThirdKindBiz;
 import com.hr.biz.ConfigPublicCharBiz;
@@ -68,5 +69,7 @@ public class ConfigPublicCharBizImpl implements ConfigPublicCharBiz {
 	public int getCharCount() {
 		return  this.baseDao.findFunc(new ConfigPublicChar(), "getCharCount");
 	}
+
+
  
 }

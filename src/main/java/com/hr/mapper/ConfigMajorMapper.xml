@@ -9,6 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllMajors" resultType="ConfigMajor" parameterType="ConfigMajor">
 		select * from config_major order by major_kind_name  desc limit #{page.startPos},#{page.pageSize}
 	</select>
+	<select id="getAllInfo" resultType="ConfigMajor" parameterType="ConfigMajor">
+		select * from config_major 
+	</select>
 	<!--查询总记录条数-->
     <select id="getMajorCount" resultType="int" >
         select count(*) from config_major 
@@ -38,14 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 删除职位信息 -->
 	<delete id="delMajor" parameterType="ConfigMajor">
 		delete from
-		config_major where major_kind_id=#{major_kind_id}
+		config_major where mak_id=#{mak_id}
 	</delete>
 	
 	<!-- 根据职位ID查找 -->
 	<select id="getConfigMajorByKindId" resultType="ConfigMajor"
 		parameterType="ConfigMajor">
 		select * from config_major where
-		major_kind_id=#{major_kind_id}
+		major_kind_id=#{major_kind_id} order by mak_id desc
 	</select>
 	 
 </mapper>

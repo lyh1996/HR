@@ -32,7 +32,7 @@
 <table width="100%"  border="1" cellpadding=0 cellspacing=1 bordercolorlight=#848284 bordercolordark=#eeeeee class="TABLE_STYLE1">
   <tr>
     <td width="19%" class="TD_STYLE1">I级机构编号</td>
-    <td width="81%" class="TD_STYLE2"><input type="text" name="firstKindId"  styleClass="INPUT_STYLE1" style="background-color: D4F8D4"value="${configFileFirstKind.firstKindId}"/></td>
+    <td width="81%" class="TD_STYLE2"><input type="text" name="firstKindId"  styleClass="INPUT_STYLE1" style="background-color: D4F8D4"value="${configFileFirstKind.firstKindId}"readonly="true"/></td>
   </tr>
   <tr>
     <td class="TD_STYLE1">I级机构名称</td>

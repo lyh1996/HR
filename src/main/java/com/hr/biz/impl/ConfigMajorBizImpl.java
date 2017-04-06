@@ -68,16 +68,22 @@ public class ConfigMajorBizImpl implements ConfigMajorBiz {
 	}
 
 	@Override
-	public ConfigMajor getMajorByKindId(Integer ID) {
+	public List<ConfigMajor> getMajorByKindId(Integer ID) {
 		ConfigMajor configMajor = new ConfigMajor();
 		configMajor.setMajor_kind_id(ID);
 		List<ConfigMajor> list = this.baseDao.findAll(configMajor, "getConfigMajorByKindId");
-		return list != null && list.size() > 0 ? list.get(0) : null;
+		return list;
 	}
 
 	@Override
 	public int getMajorCount() {
 		return  this.baseDao.findFunc(new ConfigMajor(), "getMajorCount");
+	}
+
+	@Override
+	public List<ConfigMajor> getAll() {
+		List<ConfigMajor> list = this.baseDao.findAll(new ConfigMajor(), "getAllInfo");
+		return list;
 	}
 
 }

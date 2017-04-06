@@ -6,6 +6,7 @@ import com.hr.bean.ConfigMajor;
 import com.hr.bean.ConfigMajorKind;
 public  interface ConfigMajorBiz {
 	 List<ConfigMajor> getAll(ConfigMajor configMajor);//获得所有职位
+	 List<ConfigMajor> getAll();//获得所有职位
 	 /*取得记录条数信息*/
 	 int getMajorCount();
 	 
@@ -17,5 +18,5 @@ public  interface ConfigMajorBiz {
 			//删除
 			public void delMajor(ConfigMajor configMajor);
 			
-			ConfigMajor  getMajorByKindId(Integer  ID);//根據职称类ID查找
+			List<ConfigMajor>  getMajorByKindId(Integer  ID);//根據职称类ID查找
 }

@@ -49,7 +49,6 @@
 							<option value="培训等级">培训成绩&nbsp;&nbsp;&nbsp;</option>
 							<option value="奖励项目">奖励项目&nbsp;&nbsp;&nbsp;</option>
 							<option value="奖励等级">奖励等级&nbsp;&nbsp;&nbsp;</option>
-							<option value="奖励等级">薪酬设置&nbsp;&nbsp;&nbsp;</option>
 						</select>
 					</td>
 				</tr>

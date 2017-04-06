@@ -28,9 +28,7 @@
 				bordercolorlight=#848284 bordercolordark=#eeeeee
 				class="TABLE_STYLE1">
 				<tr>
-					<td width="46%" class="TD_STYLE1">
-						试题I级分类编号
-					</td>
+					 
 					<td width="47%" class="TD_STYLE1">
 						试题I级分类名称
 					</td>
@@ -40,9 +38,7 @@
 				</tr>
 				 <c:forEach items="${ list }" var="configQuestionFirstKind"  >
 				       <tr>
-						<td class="TD_STYLE2">
-							 ${configQuestionFirstKind.first_kind_id}
-						</td>
+						 
 						<td class="TD_STYLE2">
 						 ${configQuestionFirstKind.first_kind_name}
 						</td>

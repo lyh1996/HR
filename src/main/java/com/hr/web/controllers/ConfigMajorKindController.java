@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.hr.bean.ConfigMajor;
 import com.hr.bean.ConfigMajorKind;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigMajorBiz;
 import com.hr.biz.ConfigMajorKindBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigMajorKindController {
@@ -55,7 +55,12 @@ public class ConfigMajorKindController {
 			String Name = configMajorKind.getMajor_kind_name();
 			ConfigMajorKind configMajorKind2 = this.configMajorKindBiz.getMajorKindByName(Name);
 			if (configMajorKind2 == null) {
-				configMajorKind.setMajor_kind_id(this.configMajorKindBiz.getMajorCount()+1);
+				List<ConfigMajorKind> list=this.configMajorKindBiz.getAll();
+				Integer marjor_kind_id=1;
+				if(list.size()>0){
+					marjor_kind_id=list.get(0).getMfk_id()+1;
+				}
+				configMajorKind.setMajor_kind_id(marjor_kind_id);
 				this.configMajorKindBiz.saveConfigMajorKind(configMajorKind);
 				return "config/file/major_kind_register_success";
 			} else {
@@ -67,8 +72,8 @@ public class ConfigMajorKindController {
 			return "config/file/major_kind_delete";
 		} else if ("doDelete".equals(opreate)) {
 			Integer id = Integer.parseInt("" + request.getParameter("id"));
-			ConfigMajor c=this.configMajorBiz.getMajorByKindId(id);
-			if(c==null){
+			List<ConfigMajor> c=this.configMajorBiz.getMajorByKindId(id);
+			if(c.size()==0){
 			configMajorKind.setMajor_kind_id(id);
 			this.configMajorKindBiz.delMajorKind(configMajorKind);
 			return "config/file/major_kind_delete_success";

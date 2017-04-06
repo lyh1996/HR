@@ -14,6 +14,7 @@ public  interface ConfigQuestionSecondKindBiz {
 		//根据ID来查找
 			 List<ConfigQuestionSecondKind> getInfoById(ConfigQuestionSecondKind configQuestionSecondKind);//根據ID查找
 			 List<ConfigQuestionSecondKind> getAll(ConfigQuestionSecondKind configQuestionSecondKind);//获得所有
+			 List<ConfigQuestionSecondKind> getAllnfo();//获得所有
 			 ConfigQuestionSecondKind  getInfoByName(String  Name,String first_kind_name);//根據名查找
 			//插入
 				public void  saveInfo(ConfigQuestionSecondKind configQuestionSecondKind);

@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
 	 
 	<select id="getAll" resultType="ConfigQuestionFirstKind"  >
-		select * from config_question_first_kind 
+		select * from config_question_first_kind order by qfk_id desc
 	</select>
 	<!-- 根据机构名查找 -->
 	<select id="getInfoByName" resultType="ConfigQuestionFirstKind"

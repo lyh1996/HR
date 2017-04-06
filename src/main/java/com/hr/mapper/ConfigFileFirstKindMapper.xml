@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getAllConfigFileFirstKinds" resultMap="ConfigFileFirstKindMap">
 		select * from
-		config_file_first_kind
+		config_file_first_kind order by ffk_id  desc 
 	</select>
 	<!-- 根据机构名查找 -->
 	<select id="getConfigFileFirstKindByName" resultMap="ConfigFileFirstKindMapByName"
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<!-- 删除一级机构信息 -->
 	<delete id="delConfigFileFirstKind" parameterType="ConfigFileFirstKind">
-		delete from config_file_first_kind where ffk_id=#{ffkId}
+		delete from config_file_first_kind where first_kind_id=#{firstKindId}
 	</delete>
 	
 </mapper>

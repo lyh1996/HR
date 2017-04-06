@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.hr.bean.ConfigPublicChar;
-import com.hr.bean.Page;
 import com.hr.biz.ConfigPublicCharBiz;
+import com.hr.web.utils.Page;
 
 @Controller
 public class ConfigPublicCharController {
@@ -55,6 +55,59 @@ public class ConfigPublicCharController {
 		}
 		return null;
 	}
+	
+	// 薪资设置
+	@RequestMapping(value = "/configsalarydesign.do")
+	public String getConfigSalaryChars(Model model, HttpServletRequest request, ConfigPublicChar configPublicChar) {
+		String opreate = request.getParameter("operate");
+		if ("list".equals(opreate)) {// 进入主页面
+			logger.info("getConfigPublicChars called....");
+			List<ConfigPublicChar> ConfigPublicChars = this.configPublicCharBiz.getAll("薪酬设置");
+			model.addAttribute("list", ConfigPublicChars);
+			return "config/salary/salary_list";
+		}  else if ("toAdd".equals(opreate)) {// 进入添加页面
+			return "config/salary/salary_item_register";
+		} else if ("doAdd".equals(opreate)) {// 完成添加操作
+			configPublicChar.setAttribute_kind("薪酬设置");
+			ConfigPublicChar char1 = this.configPublicCharBiz.getProfessionByName(configPublicChar);
+			if (char1 == null) {
+				this.configPublicCharBiz.saveProfession(configPublicChar);
+				return "config/salary/salary_design_register_success";
+			} else {
+				return "config/salary/salary_design_register_failure";
+			}
+		}else if ("toDelete".equals(opreate)) {
+			Integer id = Integer.parseInt("" + request.getParameter("id"));
+			model.addAttribute("pubId", id);
+			return "config/salary/salary_design_delete";
+		} else if ("doDelete".equals(opreate)) {
+			Integer id = Integer.parseInt("" + request.getParameter("id"));
+			configPublicChar.setPbc_id(id);
+			this.configPublicCharBiz.delProfession(configPublicChar);
+			List<ConfigPublicChar> ConfigPublicChars = this.configPublicCharBiz.getAll("薪酬设置");
+			model.addAttribute("list", ConfigPublicChars);
+			return "config/salary/salary_list";
+		}  
+		return null;
+	}
+	// 薪资发放设置
+		@RequestMapping(value = "/configsalarygrantmode.do")
+		public String getConfigSalaryModes(Model model, HttpServletRequest request, ConfigPublicChar configPublicChar) {
+			String opreate = request.getParameter("operate");
+			if ("toAdd".equals(opreate)) {// 进入主页面
+				return "config/salary/salary_grant_mode";
+			}  else if("doAdd".equals(opreate)){
+				configPublicChar.setAttribute_kind("薪酬发放方式");
+				ConfigPublicChar char1 = this.configPublicCharBiz.getProfessionByName(configPublicChar);
+				if (char1 == null) {
+					this.configPublicCharBiz.saveProfession(configPublicChar);
+					return "config/salary/salary_grant_register_success";
+				} else {
+					return "config/salary/salary_grant_register_failure";
+				}
+			}
+			return null;
+		}
 
 	// 公共属性设置
 	@RequestMapping(value = "/configpublicchar.do")

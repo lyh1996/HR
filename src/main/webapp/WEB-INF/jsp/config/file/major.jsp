@@ -29,15 +29,11 @@
 				bordercolorlight=#848284 bordercolordark=#eeeeee
 				class="TABLE_STYLE1">
 				<tr>
-					<td width="22%" class="TD_STYLE1">
-						职位分类编号
-					</td>
+					 
 					<td width="23%" class="TD_STYLE1">
 						职位分类名称
 					</td>
-					<td width="26%" class="TD_STYLE1">
-						职位编号
-					</td>
+					 
 					<td width="24%" class="TD_STYLE1">
 						职位名称
 					</td>
@@ -47,15 +43,11 @@
 				</tr>
 				<c:forEach items="${ list }" var="configMajors"  >
 				       <tr>
-						<td class="TD_STYLE2">
-							${configMajors.major_kind_id}
-						</td>
+						 
 						<td class="TD_STYLE2">
 							${configMajors.major_kind_name }
 						</td>
-						<td class="TD_STYLE2">
-							${configMajors.major_id }
-						</td>
+						 
 						<td class="TD_STYLE2">
 							${configMajors.major_name }
 						</td>

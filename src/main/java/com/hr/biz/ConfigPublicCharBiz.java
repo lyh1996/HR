@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hr.bean.ConfigFileThirdKind;
 import com.hr.bean.ConfigPublicChar;
+import com.hr.bean.Training;
 
 public  interface ConfigPublicCharBiz {
 	 List<ConfigPublicChar> getAll(String Name);//获得所有职称
@@ -18,4 +19,5 @@ public  interface ConfigPublicCharBiz {
 			 
 			 /*取得记录条数信息*/
 			 int getCharCount();
+			 
 }

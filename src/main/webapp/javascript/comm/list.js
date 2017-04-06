@@ -6,7 +6,7 @@ function changelocation(select2,locationid)
   for (var i=0;i < subcat.length; i++)
   {
  	if(locid==""||locid==null){select2.options[select2.length]=
- 			 new Option(subcat[i][1],subcat[i][3]);}//如果select1为空，则select2选择全部值
+ 			 new Option(subcat[i][1],subcat[i][3]);}//锟斤拷锟絪elect1为锟秸ｏ拷锟斤拷select2选锟斤拷全锟斤拷值
     else if (subcat[i][2] == locid)
     { 
         select2.options[select2.length] = new Option(subcat[i][1],subcat[i][3]);
@@ -38,7 +38,7 @@ function changelocation(select2,locationid)
   for (var k=0;k < subcat2.length; k++)
   {
  		 if(locid==""||locid==null){select5.options[select5.length]=
- 			 new Option(subcat2[k][2],subcat2[k][1]);}//如果select1为空，则select5选择全部值
+ 			 new Option(subcat2[k][2],subcat2[k][1]);}//锟斤拷锟絪elect1为锟秸ｏ拷锟斤拷select5选锟斤拷全锟斤拷值
   else if (subcat2[k][3] == locid)
   { 
    select5.options[select5.length] = new Option(subcat2[k][2], 

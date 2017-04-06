@@ -2,6 +2,8 @@ package com.hr.bean;
 
 import java.io.Serializable;
 
+import com.hr.web.utils.Page;
+
 public class ConfigQuestionFirstKind implements Serializable {//试题一级分类
 	
 	/**

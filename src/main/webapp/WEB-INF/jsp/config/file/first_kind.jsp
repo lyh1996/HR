@@ -28,9 +28,7 @@
 				bordercolorlight=#848284 bordercolordark=#eeeeee
 				class="TABLE_STYLE1">
 				<tr>
-					<td width="20%" class="TD_STYLE1">
-						I级机构编号
-					</td>
+					 
 					<td width="20%" class="TD_STYLE1">
 						I级机构名称
 					</td>
@@ -49,9 +47,7 @@
 				</tr>
 				 <c:forEach items="${ configFileFirstKindList }" var="configFileFirstKind"  >
 				       <tr>
-						<td class="TD_STYLE2">
-							 ${configFileFirstKind.firstKindId}
-						</td>
+						 
 						<td class="TD_STYLE2">
 						 ${configFileFirstKind.firstKindName}
 						</td>

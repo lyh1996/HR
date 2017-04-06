@@ -75,6 +75,13 @@ public class ConfigQuestionSecondKindBizImpl implements ConfigQuestionSecondKind
 		
 	}
 
+
+	@Override
+	public List<ConfigQuestionSecondKind> getAllnfo() {
+		List<ConfigQuestionSecondKind> list = this.baseDao.findAll(new ConfigQuestionSecondKind(), "getAllInfo");
+		return list;
+	}
+
  
 	 
 }

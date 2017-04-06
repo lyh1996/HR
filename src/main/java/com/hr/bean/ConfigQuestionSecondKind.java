@@ -2,6 +2,8 @@ package com.hr.bean;
 
 import java.io.Serializable;
 
+import com.hr.web.utils.Page;
+
 public class ConfigQuestionSecondKind implements Serializable {//试题二级分类
 
 	/**
@@ -14,6 +16,14 @@ public class ConfigQuestionSecondKind implements Serializable {//试题二级分
 	private String first_kind_name;
 	private Integer second_kind_id;
 	private String second_kind_name ;
+	private int examCount;
+	
+	public int getExamCount() {
+		return examCount;
+	}
+	public void setExamCount(int examCount) {
+		this.examCount = examCount;
+	}
 	private Page page
 	
 	;

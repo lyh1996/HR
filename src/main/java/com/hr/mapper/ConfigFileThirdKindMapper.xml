@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllConfigFileThirdKinds" resultType="ConfigFileThirdKind" parameterType="ConfigFileThirdKind">
 		select * from config_file_third_kind limit #{page.startPos},#{page.pageSize}
 	</select>
+	<select id="getAllInfo" resultType="ConfigFileThirdKind" parameterType="ConfigFileThirdKind">
+		select * from config_file_third_kind  
+	</select>
 
 	<!-- 插入信息 -->
 	<insert id="saveConfigFileThirdKind" parameterType="ConfigFileThirdKind"

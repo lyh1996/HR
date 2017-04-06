@@ -30,15 +30,11 @@
 				bordercolorlight=#848284 bordercolordark=#eeeeee
 				class="TABLE_STYLE1">
 				<tr>
-					<td width="15%" class="TD_STYLE1">
-						I级机构编号
-					</td>
+					 
 					<td width="15%" class="TD_STYLE1">
 						I级机构名称
 					</td>
-					<td width="15%" class="TD_STYLE1">
-						II级机构编号
-					</td>
+					 
 					<td width="15%" class="TD_STYLE1">
 						II级机构名称
 					</td>
@@ -57,15 +53,11 @@
 					</tr>
 				  <c:forEach items="${ list }" var="configFileSecondKind"  >
 				       <tr>
-						<td class="TD_STYLE2">
-							 ${configFileSecondKind.first_kind_id}
-						</td>
+						 
 						<td class="TD_STYLE2">
 						 ${configFileSecondKind.first_kind_name}
 						</td>
-						<td class="TD_STYLE2">
-						${configFileSecondKind.second_kind_id}
-						</td>
+						 
 						<td class="TD_STYLE2">
 							${configFileSecondKind.second_kind_name}
 						</td>
