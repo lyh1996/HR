@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HrUserRoleMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+  
+	<!-- 根据用户ID查询角色 -->
+	<select id="getRoleByUserID" resultType="HrUserRole" parameterType="HrUserRole">
+		select * from HrUserRole  where UId=${UId}
+	</select>
+	
+	 <!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="HrUserRole">
+		insert into HrUserRole(UId,RId) values(#{UId},#{RId})
+	</insert>
+	 
+<!-- 	删除权限根据ID -->
+<delete id="delInfoByID" parameterType="HrUserRole">
+		delete from
+		HrUserRole where UId=#{UId}
+	</delete>
+	
+		<!-- 更改用户角色 -->
+	<update id="updateUsersRole" parameterType="HrUserRole">
+		update
+		HrUserRole set
+		 RId=#{RId}
+		where UId=#{UId}
+	</update>
+</mapper>

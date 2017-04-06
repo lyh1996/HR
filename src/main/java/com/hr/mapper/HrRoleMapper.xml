@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HrRoleMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+ 
+	<!-- 查询所有角色 -->
+	<select id="getAllRole" resultType="HrRole" parameterType="HrRole">
+		select * from role  
+	</select>
+	<!-- 查询根据状态 -->
+	<select id="getAllRoleByFlag" resultType="HrRole" parameterType="HrRole">
+		select * from role  where RFlag =#{RFlag}
+	</select>
+	 <!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="HrRole"
+		useGeneratedKeys="true" keyProperty="RId">
+		insert into role(RName,RDesc,RFlag) values(#{RName},#{RDesc},#{RFlag})
+	</insert>
+	<!-- 根据ID查询角色 -->
+	<select id="getRoleByID" resultType="HrRole" parameterType="HrRole">
+		select * from role  where RId=#{RId}
+	</select>
+	
+		<!-- 更改角色 -->
+	<update id="updateRole" parameterType="HrRole">
+		update
+		role set
+		 RFlag=#{RFlag},RDesc=#{RDesc}
+		where RId=#{RId}
+	</update>
+	 
+</mapper>

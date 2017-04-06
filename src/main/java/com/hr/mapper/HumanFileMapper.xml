@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HumanFileMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	<select id="getAll" resultType="HumanFile">
+		select * from
+		human_file order by
+		huf_id desc
+	</select>
+
+	<!-- 根据身份ID查找 -->
+	<select id="getInfoById" resultType="HumanFile" parameterType="HumanFile">
+		select * from human_file where
+		human_id_card=#{human_id_card}
+	</select>
+	<!-- 根据档案查找 -->
+	<select id="getInfoByHumanIds" resultType="HumanFile" parameterType="HumanFile">
+		select * from human_file where
+		human_id=#{human_id}
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="HumanFile"
+		useGeneratedKeys="true" keyProperty="huf_id">
+		insert into
+		human_file(human_id,first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,human_name,human_address,human_postcode,human_pro_designation,human_major_kind_id,human_major_kind_name,human_major_id,human_major_name,
+		human_telephone,human_mobilephone,human_bank,human_account,human_qq,human_email,human_hobby,human_speciality,human_sex,human_religion,human_party,human_nationality,human_race,human_birthday,human_birthplace,human_age,human_educated_degree,human_educated_years,
+		human_educated_major,human_society_security_id,human_id_card,remark,salary_standard_id,salary_standard_name,salary_sum,demand_salaray_sum,paid_salary_sum,human_histroy_records,human_family_membership,
+		human_picture,attachment_name,check_status,register,checker,changer,regist_time,human_file_status,major_change_amount,bonus_amount,training_amount,file_chang_amount)
+		values(#{human_id},#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{third_kind_id},#{third_kind_name},#{human_name},#{human_address},#{human_postcode},#{human_pro_designation},#{human_major_kind_id},#{human_major_kind_name},#{human_major_id},#{human_major_name},
+		#{human_telephone},#{human_mobilephone},#{human_bank},#{human_account},#{human_qq},#{human_email},#{human_hobby},#{human_speciality},#{human_sex},#{human_religion},#{human_party},#{human_nationality},#{human_race},#{human_birthday},#{human_birthplace},#{human_age},#{human_educated_degree},#{human_educated_years},
+		#{human_educated_major},#{human_society_security_id},#{human_id_card},#{remark},#{salary_standard_id},#{salary_standard_name},#{salary_sum},#{demand_salaray_sum},#{paid_salary_sum},#{human_histroy_records},#{human_family_membership},
+		#{human_picture},#{attachment_name},#{check_status},#{register},#{checker},#{changer},#{regist_time},#{human_file_status},0,0,0,0)
+	</insert>
+ 
+
+	<!--查询总记录条数 -->
+	<select id="getCount" resultType="int">
+		select count(*) from human_file
+		where human_file_status=1 and check_status=0 and delete_time is null
+	</select>
+	<!--查询复核了的总记录条数 -->
+	<select id="getDelCount" resultType="int">
+		select count(*) from human_file
+		where human_file_status=0 and check_status=1 and delete_time is null
+	</select>
+	<!-- 查询所有人 -->
+	<select id="getAllPage" resultType="HumanFile" parameterType="HumanFile">
+		select * from human_file where human_file_status=#{human_file_status} and check_status=#{check_status} and delete_time is null
+		limit #{page.startPos},#{page.pageSize}
+	</select>
+
+	<!-- 根据ID查询数据 -->
+	<select id="getInfoByHumanId" resultType="HumanFile"
+		parameterType="HumanFile">
+		select * from human_file where
+		huf_id=#{huf_id}
+	</select>
+
+	<!-- 更新操作复核 -->
+	<update id="updateInfo" parameterType="HumanFile">
+		update
+		human_file set
+		human_name=#{human_name},human_address=#{human_address},human_postcode=#{human_postcode},human_pro_designation=#{human_pro_designation},
+		human_telephone=#{human_telephone},human_mobilephone=#{human_mobilephone},human_bank=#{human_bank},human_account=#{human_account},human_qq=#{human_qq},human_email=#{human_email},human_hobby=#{human_hobby},human_speciality=#{human_speciality},human_sex=#{human_sex},human_religion=#{human_religion},human_party=#{human_party},human_nationality=#{human_nationality},human_race=#{human_race},human_birthday=#{human_birthday},human_birthplace=#{human_birthplace},human_age=#{human_age},human_educated_degree=#{human_educated_degree},human_educated_years=#{human_educated_years},
+		human_educated_major=#{human_educated_major},human_society_security_id=#{human_society_security_id},human_id_card=#{human_id_card},remark=#{remark},salary_standard_id=#{salary_standard_id},salary_standard_name=#{salary_standard_name},salary_sum=#{salary_sum},human_histroy_records=#{human_histroy_records},human_family_membership=#{human_family_membership},
+		check_status=#{check_status},checker=#{checker},check_time=#{check_time},human_file_status=#{human_file_status}
+		<if test="human_picture!=null">
+			,human_picture=#{human_picture}
+		</if>
+		<if test="attachment_name!=null">
+			,attachment_name=#{attachment_name}
+		</if>
+		where huf_id=#{huf_id}
+	</update>
+	
+	<!-- 更新操作更改 -->
+	<update id="updateInfoByChange" parameterType="HumanFile">
+		update
+		human_file set
+		human_name=#{human_name},human_address=#{human_address},human_postcode=#{human_postcode},human_pro_designation=#{human_pro_designation},
+		human_telephone=#{human_telephone},human_mobilephone=#{human_mobilephone},human_bank=#{human_bank},human_account=#{human_account},human_qq=#{human_qq},human_email=#{human_email},human_hobby=#{human_hobby},human_speciality=#{human_speciality},human_sex=#{human_sex},human_religion=#{human_religion},human_party=#{human_party},human_nationality=#{human_nationality},human_race=#{human_race},human_birthday=#{human_birthday},human_birthplace=#{human_birthplace},human_age=#{human_age},human_educated_degree=#{human_educated_degree},human_educated_years=#{human_educated_years},
+		human_educated_major=#{human_educated_major},human_society_security_id=#{human_society_security_id},human_id_card=#{human_id_card},remark=#{remark},salary_standard_id=#{salary_standard_id},salary_standard_name=#{salary_standard_name},human_histroy_records=#{human_histroy_records},human_family_membership=#{human_family_membership},
+		check_status=#{check_status},changer=#{changer},change_time=#{change_time},human_file_status=#{human_file_status},lastly_change_time=#{lastly_change_time},file_chang_amount=#{file_chang_amount}
+		<if test="human_picture!=null">
+			,human_picture=#{human_picture}
+		</if>
+		<if test="attachment_name!=null">
+			,attachment_name=#{attachment_name}
+		</if>
+		where huf_id=#{huf_id}
+	</update>
+	
+	<!-- 根据条件查询-->
+	<select id="getInfoByCondition" resultType="HumanFile"
+		parameterType="HumanFile">
+		select * from human_file where human_file_status=0 and check_status=1 
+		<if test="first_kind_id!=0 and first_kind_id!=null">
+		  and first_kind_id=#{first_kind_id}
+		</if>
+		<if test="second_kind_id!=0 and second_kind_id!=null">
+		  and second_kind_id=#{second_kind_id}
+		</if>
+		<if test="third_kind_id!=0 and third_kind_id!=null">
+		  and third_kind_id=#{third_kind_id}
+		</if>
+		<if test="startTime!=null and endTime!=null and startTime!='' and endTime!='' ">
+		  and regist_time between #{startTime} and #{endTime}
+		</if>
+		<if test="delete_time!=null">
+		 and delete_time is not null
+		</if>
+		<if test="delete_time==null">
+		 and delete_time is  null
+		</if>
+	</select>
+	
+	<!-- 删除操作 -->
+	<update id="updateInfoToDelete" parameterType="HumanFile">
+		update
+		human_file set delete_time=#{delete_time}
+		where human_id=#{human_id}
+	</update>
+	<!-- 恢复操作 -->
+	<update id="updateInfoToRecovery" parameterType="HumanFile">
+		update
+		human_file set delete_time=#{delete_time},check_status=#{check_status},human_file_status=#{human_file_status}
+		where human_id=#{human_id}
+	</update>
+	<!-- 永久删除 -->
+	<delete id="delInfo" parameterType="HumanFile">
+		delete from
+		human_file where human_id=#{human_id}
+	</delete>
+	
+<!-- 	搜索 -->
+	 <select id="getInfoByName" resultType="HumanFile"
+		parameterType="HumanFile">
+		select * from human_file where human_file_status=0 and check_status=1 
+		<if test="human_id!=null">
+		  and human_id=#{human_id}
+		</if>
+		<if test="human_name!=null">
+		  and human_name=#{human_name}
+		</if>
+		<if test="delete_time!=null">
+		 and delete_time is not null
+		</if>
+		<if test="delete_time==null">
+		 and delete_time is  null
+		</if>
+	</select>
+	<!-- 调动操作 -->
+	<update id="updateInfoToMajorChange" parameterType="HumanFile">
+		update
+		human_file set 
+		first_kind_id=#{first_kind_id},first_kind_name=#{first_kind_name},second_kind_id=#{second_kind_id},second_kind_name=#{second_kind_name},
+		third_kind_id=#{third_kind_id},third_kind_name=#{third_kind_name},human_major_kind_id=#{human_major_kind_id},human_major_kind_name=#{human_major_kind_name},
+		human_major_id=#{human_major_id},human_major_name=#{human_major_name},salary_standard_id=#{salary_standard_id},salary_standard_name=#{salary_standard_name},
+		major_change_amount=#{major_change_amount}
+		where human_id=#{human_id}
+	</update>
+	<!-- 培训操作 -->
+	<update id="updateInfoToTraining" parameterType="HumanFile">
+		update
+		human_file set  training_amount=#{training_amount} where human_id=#{human_id}
+	</update>
+	<!-- 激励操作 -->
+	<update id="updateInfoToBonus" parameterType="HumanFile">
+		update
+		human_file set  bonus_amount=#{bonus_amount} where human_id=#{human_id}
+	</update>
+	
+	<!-- 根据一级机构发放方式查找 -->
+	<select id="getInfoToSalaryGrant" resultType="HumanFile"
+		parameterType="HumanFile">
+		select count(*) as humanCount,sum(salary_sum) as salarySum ,first_kind_name,first_kind_id from human_file where
+		 human_file_status=0 and check_status=1 and delete_time is  null and  first_kind_name not like 'null' group by first_kind_name 
+	</select>
+	<!-- 根据二级机构发放方式查找 -->
+	<select id="getInfoToSalaryGrant2" resultType="HumanFile"
+		parameterType="HumanFile">
+	select count(*) as humanCount,sum(salary_sum) as salarySum ,first_kind_id,first_kind_name,second_kind_id,second_kind_name  from human_file
+	 where  human_file_status=0 and check_status=1 and delete_time is  null and first_kind_name not like 'null' and second_kind_name not like 'null'  group by (second_kind_name)
+		 
+	</select>
+	<!-- 根据三级机构发放方式查找 -->
+	<select id="getInfoToSalaryGrant3" resultType="HumanFile"
+		parameterType="HumanFile">
+	select count(*) as humanCount,sum(salary_sum) as salarySum ,first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name  from human_file
+	 where  human_file_status=0 and check_status=1 and delete_time is  null and first_kind_name not like 'null' and second_kind_name not like 'null' and third_kind_name not like 'null'  group by (third_kind_name)
+	</select>
+	<!-- 实发薪酬操作 -->
+	<update id="updateInfoToSalary" parameterType="HumanFile">
+		update
+		human_file set  paid_salary_sum=#{paid_salary_sum} where human_id=#{human_id}
+	</update>
+	 
+</mapper>

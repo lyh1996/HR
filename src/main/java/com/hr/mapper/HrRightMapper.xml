@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HrRightMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+ 
+	<!-- 查询所有角色 -->
+	<select id="getAllRight" resultType="HrRight" parameterType="HrRight">
+		select * from hrRight  
+	</select>
+	
+	 <select id="getRightCount" resultType="int" >
+        select count(*) from hrRight 
+    </select>
+    <select id="getAllRightToPage" resultType="HrRight" parameterType="HrRight">
+		select * from hrRight  where 1=1
+		<if test="rightText!=null and rightText!=''">
+				and  rightText=#{rightText}
+		</if>
+		<if test="rightTip!=null and rightTip!=''">
+		 and rightTip=#{rightTip}
+		 </if>
+		 <if test="rightType!=null and rightType!=''">
+		 and rightType=#{rightType}
+		 </if>
+		 limit #{page.startPos},#{page.pageSize} 
+        <!--startPos开始页 ， pageSize每页显示的记录条数-->
+	</select>
+	
+	<select id="getINfoByRightCode" resultType="HrRight" parameterType="HrRight">
+		select * from hrRight  where rightCode=#{rightCode}
+	</select>
+	
+	<!-- 编辑权限 -->
+	<update id="updataInfo"   parameterType="HrRight">
+		update hrRight  set rightTip=#{rightTip}, rightText=#{rightText} where rightCode=#{rightCode}
+	</update>
+</mapper>

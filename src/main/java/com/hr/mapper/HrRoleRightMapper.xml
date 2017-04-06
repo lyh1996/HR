@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HrRoleRightMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+  
+	 <!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="HrRoleRight">
+		insert into HrRoleRight(RId,rightCode) values(#{RId},#{rightCode})
+	</insert>
+	<!-- 根据ID查询角色 -->
+	<select id="getRoleRightByID" resultType="HrRoleRight" parameterType="HrRoleRight">
+		select * from HrRoleRight  where RId=#{RId}
+	</select>
+<!-- 	删除权限根据ID -->
+<delete id="delInfoByID" parameterType="HrRoleRight">
+		delete from
+		HrRoleRight where RId=#{RId}
+	</delete>
+
+</mapper>

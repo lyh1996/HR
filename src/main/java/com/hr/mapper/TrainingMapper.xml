@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.TrainingMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="Training"
+		useGeneratedKeys="true" keyProperty="tra_id">
+		insert into
+		training(major_kind_id,major_kind_name,major_id,major_name,human_id,human_name,training_item,training_time,training_hour,training_degree,register,regist_time,checkstatus,remark)
+		value(#{major_kind_id},#{major_kind_name},#{major_id},#{major_name},#{human_id},#{human_name},#{training_item},#{training_time},#{training_hour},#{training_degree},#{register},#{regist_time},#{checkstatus},#{remark})
+	</insert>
+	
+	<!-- 根据身份ID查找 -->
+	<select id="getInfoByHumanId" resultType="Training" parameterType="Training">
+		select * from training where
+		human_id=#{human_id} and checkstatus=0
+	</select>
+	
+	<!--查询复核总记录条数 -->
+	<select id="getCount" resultType="int">
+		select count(*) from training
+		where  checkstatus=0
+	</select>
+	<!-- 查询复核所有人 -->
+	<select id="getAllPage" resultType="Training" parameterType="Training">
+		select * from training where  checkstatus=#{checkstatus} 
+		limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<!-- 更新操作-->
+	<update id="updateInfo" parameterType="Training">
+		update
+		training set
+		 checkstatus=#{checkstatus} ,checker=#{checker},check_time=#{check_time}
+		where human_id=#{human_id}
+	</update>
+ 
+ <select id="getTrainingCount" resultType="int">
+		select count(*) from training
+	</select>
+	<select id="getAllTrainingPage" resultType="Training" parameterType="Training">
+		select * from training limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<select id="getInfoById" resultType="Training" parameterType="Training">
+		select * from training where
+		tra_id=#{tra_id}
+	</select>
+	
+	<delete id="delInfo" parameterType="Training">
+		delete from
+		training where tra_id=#{tra_id}
+	</delete>
+
+</mapper>

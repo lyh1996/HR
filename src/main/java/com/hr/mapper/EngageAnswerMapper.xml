@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageAnswerMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+<!-- 获得编号 -->
+	<select id="getCount" resultType="int">
+		select count(ans_id) from
+		engage_answer
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="EngageAnswer"
+		useGeneratedKeys="true" keyProperty="ans_id">
+		insert into
+		engage_answer(answer_number,exam_number,resume_id,interview_id,human_name,human_idcard,major_kind_id,major_kind_name,major_id,major_name,test_time,use_time,total_point)
+		value(#{answer_number},#{exam_number},#{resume_id},#{interview_id},#{human_name},#{human_idcard},#{major_kind_id},#{major_kind_name},#{major_id},#{major_name},#{test_time},#{use_time},#{total_point})
+	</insert>
+	
+	<!-- 查询阅卷 -->
+	<select id="getInfoByCondition" resultType="EngageAnswer"
+		parameterType="EngageAnswer">
+		select * from engage_answer where total_point=0.0
+		<if test="major_kind_id!=0 ">
+			and major_kind_id=#{major_kind_id}
+		</if>
+		<if
+			test="major_id!=0">
+			and major_id=#{major_id}
+		</if>
+		<if test="human_name!=null and human_name!='' ">
+			and human_name=#{human_name}
+		</if>
+		<if test="human_idcard!=null and human_idcard!='' ">
+			and human_idcard=#{human_idcard}
+		</if>
+	</select>
+ 
+ <update id="updateInfo"  parameterType="EngageAnswer">
+ 	update engage_answer set total_point=#{total_point} where answer_number=#{answer_number}
+ </update>
+ 
+<!--  成绩赛选 -->
+<select id="getInfoByFilter" resultType="EngageAnswer"
+		parameterType="EngageAnswer">
+		select * from engage_answer where 1=1 and total_point >0
+		<if test="human_idcard!=null and human_idcard!=''">
+			and human_idcard=#{human_idcard}
+		</if>
+		<if
+			test="human_name!=null and human_name!=''">
+			and human_name=#{human_name}
+		</if>
+		<if
+			test="start_time!=null and end_time!=null and start_time!='' and end_time!='' ">
+			and test_time between #{start_time} and #{end_time}
+		</if>
+	</select>
+	
+	<!-- 根据试卷ID查找 -->
+	<select id="getInfoById" resultType="EngageAnswer"
+		parameterType="EngageAnswer">
+		select * from engage_answer where
+		answer_number=#{answer_number}
+	</select>
+	
+	<!-- 根据简历ID查找 -->
+	<select id="getInfoByResumeId" resultType="EngageAnswer"
+		parameterType="EngageAnswer">
+		select * from engage_answer where
+		resume_id=#{resume_id}
+	</select>
+ 
+</mapper>

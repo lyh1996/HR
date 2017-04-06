@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageMajorReleaseMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	
+	<!-- 查询所有职位 -->
+	<select id="getAllInfo" resultType="EngageMajorRelease" parameterType="EngageMajorRelease">
+		select * from engage_major_release order by major_kind_name  desc limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<select id="getAll" resultType="EngageMajorRelease" parameterType="EngageMajorRelease">
+		select * from engage_major_release 
+	</select>
+	
+	<select id="getReleaseById" resultType="EngageMajorRelease" parameterType="EngageMajorRelease">
+		select * from engage_major_release where mre_id=#{mre_id}
+	</select>
+	
+	<!--查询总记录条数-->
+    <select id="getCount" resultType="int" >
+        select count(*) from engage_major_release 
+    </select>
+	
+	<!-- 插入信息 -->
+	<insert id="saveRelease" parameterType="EngageMajorRelease"
+		useGeneratedKeys="true" keyProperty="mre_id">
+		insert into
+		engage_major_release(first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,major_kind_id,major_kind_name,major_id,major_name,human_amount,engage_type,deadline,register,regist_time,major_describe,engage_required)
+		values(#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{third_kind_id},#{third_kind_name},#{major_kind_id},#{major_kind_name},#{major_id},#{major_name},#{human_amount},#{engage_type},#{deadline},#{register},#{regist_time},#{major_describe},#{engage_required})
+	</insert>
+	
+	<!-- 删除职位信息 -->
+	<delete id="delRelease" parameterType="EngageMajorRelease">
+		delete from
+		engage_major_release where mre_id=#{mre_id}
+	</delete>
+	
+	<update id="updateRelease" parameterType="EngageMajorRelease">
+		update engage_major_release set 
+		engage_type=#{engage_type},human_amount=#{human_amount},
+		deadline=#{deadline},changer=#{changer},change_time=#{change_time},
+		major_describe=#{major_describe},engage_required=#{engage_required}
+		where mre_id=#{mre_id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.SalaryGrantMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	<!-- 获得编号 -->
+	<select id="getCount" resultType="int">
+		select count(sgr_id) from
+		salary_grant
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="SalaryGrant"
+		useGeneratedKeys="true" keyProperty="sgr_id">
+		insert into
+		salary_grant(salary_grant_id,first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,human_amount,salary_standard_sum,
+		salary_paid_sum,register,regist_time,check_status)
+		values(#{salary_grant_id},#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{third_kind_id},#{third_kind_name},#{human_amount},#{salary_standard_sum},
+		#{salary_paid_sum},#{register},#{regist_time},#{check_status})
+	</insert>
+	<!-- 查询复核列表 -->
+	<select id="getInfoTochecklist" resultType="SalaryGrant"
+		parameterType="SalaryGrant">
+		select count(*) as totalCount,sum(salary_standard_sum) as totalstandardsum,sum(salary_paid_sum) as totalpaysum,first_kind_name,first_kind_id,second_kind_name,second_kind_id,third_kind_id,third_kind_name
+		, salary_grant_id  from salary_grant  where check_status=0 group by
+		(salary_grant_id)
+	</select>
+	
+	<select id="getSalaryGrantById" resultType="SalaryGrant" >
+		select * from
+		salary_grant 
+		where salary_grant_id=#{salary_grant_id} 
+	</select>
+	
+	<!-- 更新操作-->
+	<update id="updateInfo" parameterType="SalaryGrant">
+		update
+		salary_grant set
+		 salary_paid_sum=#{salary_paid_sum} ,checker=#{checker},check_time=#{check_time},check_status=#{check_status}
+		where salary_grant_id=#{salary_grant_id} 
+	</update>
+	<!-- 查询操作 -->
+	<!-- 根据条件查询-->
+	<select id="getInfoByCondition" resultType="SalaryGrant"
+		parameterType="SalaryGrant">
+		select * from salary_grant where 1=1
+		<if test="salary_grant_id!='' and salary_grant_id!=null">
+		  and salary_grant_id=#{salary_grant_id}
+		</if>
+		<if test="startTime!=null and endTime!=null and startTime!='' and endTime!='' ">
+		  and check_time between #{startTime} and #{endTime}
+		</if>
+	</select>
+	
+	<delete id="delInfo" parameterType="SalaryGrant">
+		delete from
+		salary_grant where salary_grant_id=#{salary_grant_id}
+	</delete>
+
+</mapper>

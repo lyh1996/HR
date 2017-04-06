@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageExamMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+<!-- 获得编号 -->
+	<select id="getCount" resultType="int">
+		select count(exa_id) from
+		engage_exam
+	</select>
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="EngageExam"
+		useGeneratedKeys="true" keyProperty="exa_id">
+		insert into
+		engage_exam(exam_number,major_kind_id,major_kind_name,major_id,major_name,register,regist_time,limite_time)
+		value(#{exam_number},#{major_kind_id},#{major_kind_name},#{major_id},#{major_name},#{register},#{regist_time},#{limite_time})
+	</insert>
+	
+	<select id="toExamList" resultType="EngageExam" parameterType="EngageExam">
+		select major_kind_name,major_name,count(*) as totalCount from engage_exam   group by (major_name);
+	</select>
+	
+	<!-- 随机取试卷 -->
+	<select id="getInfoRand" resultType="EngageExam" parameterType="EngageExam">
+		 select * from engage_exam where major_kind_id=#{major_kind_id} and major_id=#{major_id} order by rand() limit 1
+	</select>
+ 
+</mapper>

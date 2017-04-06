@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.MajorChangeMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="MajorChange"
+		useGeneratedKeys="true" keyProperty="mch_id">
+		insert into
+		major_change(first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,
+		third_kind_name,major_kind_id,major_kind_name,major_id,
+		major_name,new_first_kind_id,new_first_kind_name,new_second_kind_id,
+		new_second_kind_name,new_third_kind_id,new_third_kind_name,
+		new_major_kind_id,new_major_kind_name,new_major_id,new_major_name,
+		human_id,human_name,salary_standard_id,salary_standard_name,
+		salary_sum,new_salary_standard_id,new_salary_standard_name,
+		new_salary_sum,change_reason,check_status,register,regist_time)
+		value(#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{third_kind_id},
+		#{third_kind_name},#{major_kind_id},#{major_kind_name},#{major_id},
+		#{major_name},#{new_first_kind_id},#{new_first_kind_name},#{new_second_kind_id},
+		#{new_second_kind_name},#{new_third_kind_id},#{new_third_kind_name},
+		#{new_major_kind_id},#{new_major_kind_name},#{new_major_id},#{new_major_name},
+		#{human_id},#{human_name},#{salary_standard_id},#{salary_standard_name},
+		#{salary_sum},#{new_salary_standard_id},#{new_salary_standard_name},
+		#{new_salary_sum},#{change_reason},#{check_status},#{register},#{regist_time})
+	</insert>
+<!--查询复核总记录条数 -->
+	<select id="getCount" resultType="int">
+		select count(*) from major_change
+		where  check_status=0
+	</select>
+	<select id="getChangeCount" resultType="int">
+		select count(*) from major_change
+	</select>
+	<select id="getAllChangePage" resultType="MajorChange" parameterType="MajorChange">
+		select * from major_change limit #{page.startPos},#{page.pageSize}
+	</select>
+	<!-- 查询所有人 -->
+	<select id="getAllPage" resultType="MajorChange" parameterType="MajorChange">
+		select * from major_change where  check_status=#{check_status} 
+		limit #{page.startPos},#{page.pageSize}
+	</select>
+	<!-- 根据身份ID查找 -->
+	<select id="getInfoById" resultType="MajorChange" parameterType="MajorChange">
+		select * from major_change where
+		mch_id=#{mch_id}
+	</select>
+	<!-- 根据身份ID查找 -->
+	<select id="getInfoByHumanId" resultType="MajorChange" parameterType="MajorChange">
+		select * from major_change where
+		human_id=#{human_id} and check_status=0
+	</select>
+	
+	<!-- 更新操作-->
+	<update id="updateInfo" parameterType="MajorChange">
+		update
+		major_change set
+		 check_status=#{check_status},check_reason=#{check_reason},checker=#{checker},check_time=#{check_time}
+		where human_id=#{human_id}
+	</update>
+	
+	<delete id="delInfo" parameterType="MajorChange">
+		delete from
+		major_change where mch_id=#{mch_id}
+	</delete>
+
+</mapper>

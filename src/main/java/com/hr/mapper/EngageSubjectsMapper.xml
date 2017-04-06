@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageSubjectsMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+
+	<!-- 插入信息 -->
+	<insert id="saveInfo" parameterType="EngageSubjects"
+		useGeneratedKeys="true" keyProperty="sub_id">
+		insert into
+		engage_subjects(first_kind_id,first_kind_name,second_kind_id,second_kind_name,register,regist_time,derivation,content,key_a,key_b,key_c,key_d,key_e,correct_key)
+		value(#{first_kind_id},#{first_kind_name},#{second_kind_id},#{second_kind_name},#{register},#{regist_time},#{derivation},#{content},#{key_a},#{key_b},#{key_c},#{key_d},#{key_e},#{correct_key})
+	</insert>
+
+	<!-- 查看试题信息 -->
+	<select id="getInfoByCondition" resultType="EngageSubjects"
+		parameterType="EngageSubjects">
+		select * from engage_subjects where 1=1
+		<if test="first_kind_id!=0 and first_kind_id!=null and first_kind_id!=''">
+			and first_kind_name=#{first_kind_name}
+		</if>
+		<if
+			test="second_kind_id!=0 and second_kind_id!=null and second_kind_id!=''">
+			and second_kind_name=#{second_kind_name}
+		</if>
+		<if
+			test="start_time!=null and end_time!=null and start_time!='' and end_time!='' ">
+			and regist_time between #{start_time} and #{end_time}
+		</if>
+	</select>
+	<!-- 根据ID查找 -->
+	<select id="getInfoById" resultType="EngageSubjects"
+		parameterType="EngageSubjects">
+		select * from engage_subjects where
+		sub_id=#{sub_id}
+	</select>
+	<delete id="delInfo" parameterType="EngageSubjects">
+		delete from
+		engage_subjects
+		where sub_id=#{sub_id}
+	</delete>
+
+	<!-- 更新操作 -->
+	<update id="updateInfo" parameterType="EngageSubjects">
+		update
+		engage_subjects set
+		derivation=#{derivation}
+		,content=#{content},key_a=#{key_a},key_b=#{key_b},key_c=#{key_c},key_d=#{key_d},
+		key_e=#{key_e},correct_key=#{correct_key},changer=#{changer},change_time=#{change_time}
+		where sub_id=#{sub_id}
+	</update>
+	<!-- 查询题目数量 -->
+	<select id="getExamCount" resultType="int" parameterType="EngageSubjects">
+		select count(*) from engage_subjects  where first_kind_name=#{first_kind_name} and second_kind_name=#{second_kind_name}
+	</select>
+	
+	<!-- 随机取题 -->
+	<select id="getInfoRand" resultType="EngageSubjects" parameterType="EngageSubjects">
+		 select * from engage_subjects where first_kind_id=#{first_kind_id} and second_kind_id=#{second_kind_id} order by rand() limit #{subjectCount}
+	</select>
+	
+
+
+</mapper>

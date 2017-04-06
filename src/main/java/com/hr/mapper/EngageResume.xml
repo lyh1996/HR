@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageResumeMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	
+	<select id="getAll" resultType="EngageResume" parameterType="EngageResume">
+		select * from engage_resume 
+	</select>
+	
+	<select id="getAllInfo" resultType="EngageResume" parameterType="EngageResume">
+		select * from engage_resume order by human_major_kind_name  desc limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<select id="getResumeById" resultType="EngageResume" parameterType="EngageResume">
+		select * from engage_resume where res_id=#{res_id}
+	</select>
+	
+	<!--查询总记录条数-->
+    <select id="getCount" resultType="int" >
+        select count(*) from engage_resume 
+    </select>
+    
+    <!-- 根据条件查询  筛选-->
+	<select id="getResumeByCondition" resultType="EngageResume" parameterType="EngageResume">
+		select * from engage_resume where check_status=#{check_status} and interview_status = #{interview_status}
+		<if test="human_major_kind_name !=null and human_major_kind_name !='' ">
+		  and human_major_kind_name=#{human_major_kind_name}
+		</if>
+		<if test="human_major_name !=null and human_major_name !='' ">
+		  and human_major_name=#{human_major_name}
+		</if>
+		<if test="startTime!=null and endTime!=null and startTime!='' and endTime!='' ">
+		  and regist_time between #{startTime} and #{endTime}
+		</if>
+		limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<select id="getResumeByCondition2" resultType="EngageResume" parameterType="EngageResume">
+		select * from engage_resume where pass_check_status=#{pass_check_status} limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	
+	<insert id="saveInfo" parameterType="EngageResume" useGeneratedKeys="true" keyProperty="res_id">
+		insert into engage_resume(human_major_kind_id,human_major_kind_name,human_major_id,human_major_name,engage_type,
+		human_name,human_sex,human_email,human_telephone,human_homephone,human_mobilephone,human_address,human_postcode,human_nationality,
+		human_birthplace,human_birthday,human_race,human_religion,human_party,human_idcard,
+		human_age,human_college,human_educated_degree,human_educated_years,human_educated_major,
+		demand_salary_standard,regist_time,human_specility,human_hobby,human_history_records,remark,human_picture,attachment_name,check_status,interview_status)
+		values(#{human_major_kind_id},#{human_major_kind_name },#{human_major_id },#{human_major_name },#{engage_type},
+		#{human_name},#{human_sex},#{human_email},#{human_telephone},#{human_homephone},
+		#{human_mobilephone},#{human_address},#{human_postcode},#{human_nationality},#{human_birthplace},
+		#{human_birthday},#{human_race},#{human_religion},#{human_party},#{human_idcard},#{human_age},
+		#{human_college},#{human_educated_degree},#{human_educated_years},#{human_educated_major},
+		#{demand_salary_standard},#{regist_time},#{human_specility},#{human_hobby},#{human_history_records},#{remark},#{human_picture},#{attachment_name},#{check_status},#{interview_status})
+	</insert>
+	
+	
+	<delete id="delete" parameterType="EngageResume">
+		delete from engage_resume where  res_id=#{res_id}
+	</delete>
+	
+	<update id="updateInfo"  parameterType="EngageResume">
+		update engage_resume set 
+		human_name = #{human_name },human_sex = #{human_sex },human_email = #{human_email },
+		human_telephone = #{human_telephone },human_homephone = #{human_homephone },
+		human_mobilephone=#{human_mobilephone },human_address = #{human_address },human_postcode = #{human_postcode},
+		human_nationality =#{human_nationality },human_birthplace =#{human_birthplace},human_birthday = #{human_birthday},
+		human_race = #{human_race},human_religion = #{human_religion}, human_party = #{human_party},
+		human_idcard = #{human_idcard},human_age = #{human_age},human_college = #{human_college},
+		human_educated_degree = #{human_educated_degree},human_educated_years=#{human_educated_years},
+		human_educated_major = #{human_educated_major },demand_salary_standard = #{demand_salary_standard},
+		human_specility = #{human_specility },human_hobby = #{human_hobby},human_history_records = #{human_history_records},
+		remark = #{remark},recomandation =#{recomandation },checker = #{checker }, check_time=#{check_time },check_status = #{check_status},interview_status=#{interview_status }
+		where res_id=#{res_id}
+	</update>
+	
+	<update id="updateinterview"  parameterType="EngageResume">
+		update engage_resume set 
+		pass_register = #{pass_register},pass_regist_time = #{pass_regist_time}, pass_check_status = #{pass_check_status},pass_checkComment = #{pass_checkComment}
+		where res_id=#{res_id}
+	</update>
+	
+	<update id="updatestatus"  parameterType="EngageResume">
+		update engage_resume set 
+		interview_status = #{interview_status }
+		where res_id=#{res_id}
+	</update>
+	
+	<update id="updatepassstatus"  parameterType="EngageResume">
+		update engage_resume set 
+		pass_check_status = #{pass_check_status }
+		where res_id=#{res_id}
+	</update>
+	
+	<update id="updatepass"  parameterType="EngageResume">
+		update engage_resume set 
+		pass_checker = #{pass_checker},pass_check_time = #{pass_check_time},pass_check_status = #{pass_check_status},pass_passComment = #{pass_passComment}
+		where res_id=#{res_id}
+	</update>
+	
+	<update id="updatesubjects"  parameterType="EngageResume">
+		update engage_resume set 
+		total_points = #{total_points},test_amount = #{test_amount},test_checker = #{test_checker},test_check_time = #{test_check_time}
+		where res_id=#{res_id}
+	</update>
+	
+	<!-- 根据名字和身份证查找简历 -->
+	<select id="searchResume" parameterType="EngageResume"  resultType="EngageResume">
+		select * from engage_resume where human_name=#{human_name} and human_idcard=#{human_idcard}
+	</select>
+	<!-- 试题录入 -->
+	<update id="updateinterviewTest"  parameterType="EngageResume">
+		update engage_resume set 
+		pass_register = #{pass_register},pass_regist_time = #{pass_regist_time}, pass_check_status = #{pass_check_status},
+		test_amount = #{test_amount},test_checker = #{test_checker},test_check_time = #{test_check_time},total_points=#{total_points}
+		where res_id=#{res_id}
+	</update>
+	
+</mapper>

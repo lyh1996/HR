@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.ConfigPrimaryKeyMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	
+	<!-- 查询所有职称 -->
+	<select id="getAll" resultType="ConfigPrimaryKey" parameterType="ConfigPrimaryKey">
+		select  *  from config_primary_key where primary_key_table=#{primary_key_table} and primary_key_status=#{primary_key_status}   
+	</select>
+	<select id="getAllInfo" resultType="ConfigPrimaryKey" parameterType="ConfigPrimaryKey">
+		select  *  from config_primary_key where primary_key_table=#{primary_key_table}  
+	</select>
+	
+	<!-- 查询所有职称 -->
+	<select id="getInfo" resultType="java.util.LinkedHashMap" parameterType="ConfigPrimaryKey">
+		select ${primary_key}  from ${primary_key_table}  where 1=1
+		<if test="entity!=null and entity!=''">
+			and ${entity}=${entityName}
+		</if>
+		
+	</select>
+	<!-- 更改 -->
+	<update id="updateInfo"  parameterType="ConfigPrimaryKey">
+		 update  config_primary_key  set primary_key_status=1 where prk_id=#{prk_id}
+	</update>
+	<!-- 重置 -->
+	<update id="resetInfo"  parameterType="ConfigPrimaryKey">
+		 update  config_primary_key  set primary_key_status=0 where primary_key_table=#{primary_key_table}
+	</update>
+	
+	
+	 
+	 
+</mapper>

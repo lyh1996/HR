@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.SalaryStandardMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+	<!-- 插入信息 -->
+	<insert id="saveSalaryStandard" parameterType="SalaryStandard"
+		useGeneratedKeys="true" keyProperty="ssd_id">
+		insert into
+		salary_standard(ssd_id,standard_id,standard_name,designer,register,regist_time,remark,check_status,salary_sum)
+		values(#{ssd_id},#{standard_id},#{standard_name},#{designer},#{register},#{regist_time},#{remark},#{check_status},#{salary_sum})
+	</insert>
+	
+
+
+	<select id="getAllSalaryStandard" resultType="SalaryStandard">
+		select * from
+		salary_standard order by ssd_id desc
+	</select>
+
+	<select id="getSalaryStandardById" resultType="SalaryStandard">
+		select * from
+		salary_standard 
+		where standard_id=#{standard_id}
+	</select>
+	
+	<select id="getAllNeedCheckSalaryStandard" resultType="SalaryStandard">
+		select * from
+		salary_standard
+		where check_status=#{check_status}
+	</select>
+
+	<!-- 更新复核 -->
+	<update id="updateSalaryStandard" parameterType="SalaryStandard">
+		update
+		salary_standard set
+		 standard_name=#{standard_name},salary_sum=#{salary_sum},designer=#{designer},checker=#{checker},check_time=#{check_time},check_comment=#{check_comment},check_status=1
+		where standard_id=#{standard_id}
+	</update>
+	
+	<!-- 更新变更 -->
+	<update id="updateChangeSalaryStandard" parameterType="SalaryStandard">
+		update 
+		salary_standard set
+		standard_name=#{standard_name},salary_sum=#{salary_sum},designer=#{designer},changer=#{changer},change_time=#{change_time},remark=#{remark},check_status=0
+		where standard_id=#{standard_id}
+	</update>
+
+	<select id="getInfoByCondition" resultType="SalaryStandard"
+		parameterType="SalaryStandard">
+		select * from salary_standard where 1=1
+		<if test="time_first!='' and time_second!='' and time_first!=null and time_second!=null">
+		  and check_time between #{time_first} and #{time_second}
+		</if>
+		
+		<if test="standard_id!=null and standard_id!=''">
+		 and standard_id=#{standard_id}
+		</if>
+		 
+	</select>
+	
+	<select id="getInfoByCheckStatus" resultType="SalaryStandard" parameterType="SalaryStandard">
+		select * from salary_standard where 1=1
+		<if test="time_first!='' and time_second!='' and time_first!=null and time_second!=null">
+			and check_time between #{time_first} and #{time_second}
+		</if>
+		<if test="check_status!=null and check_status!=''">
+			and check_status=#{check_status}
+		</if>
+	</select>
+	
+	
+		<!-- 删除操作 -->
+	<delete id="delInfo" parameterType="SalaryStandard">
+		delete from
+		salary_standard where standard_id=#{standard_id}
+	</delete>
+</mapper>
+

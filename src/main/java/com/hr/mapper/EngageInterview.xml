@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.EngageInterviewMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	
+	<select id="getAll" resultType="EngageInterview" parameterType="EngageInterview">
+		select * from engage_interview 
+	</select>
+	
+	<select id="getAllInfo" resultType="EngageInterview" parameterType="EngageInterview">
+		select * from engage_interview  where 1=1
+		<if test="interview_status != 1 ">
+				and interview_status=#{interview_status}
+		</if>
+		<if test="check_status != 1 ">
+				and check_status=#{check_status}
+		</if>
+		order by human_major_kind_name  desc limit #{page.startPos},#{page.pageSize}
+	</select>
+	
+	<select id="getInterviewById" resultType="EngageInterview" parameterType="EngageInterview">
+		select * from engage_interview where resume_id=#{resume_id}
+	</select>
+	
+	<!--查询总记录条数-->
+    <select id="getCount" resultType="int" >
+        select count(*) from engage_interview 
+    </select>
+    
+	<insert id="saveInfo" parameterType="EngageInterview" useGeneratedKeys="true" keyProperty="ein_id">
+			insert into engage_interview(human_major_kind_id,human_major_kind_name,human_major_id,human_major_name,
+			human_name,interview_amount,image_degree,native_language_degree,foreign_language_degree,response_speed_degree,
+			EQ_degree,IQ_degree,multi_quality_degree,register,registe_time,resume_id,interview_comment,interview_status,check_status) 
+			values(#{human_major_kind_id},#{human_major_kind_name},#{human_major_id},#{human_major_name},#{human_name},
+			#{interview_amount},#{image_degree},#{native_language_degree},#{foreign_language_degree},#{response_speed_degree},
+			#{EQ_degree},#{IQ_degree},#{multi_quality_degree},#{register},#{registe_time},#{resume_id},#{interview_comment},#{interview_status},#{check_status})
+	</insert>
+	
+	<update id="updateInfo"  parameterType="EngageInterview">
+		update engage_interview set 
+		checker = #{checker },check_time = #{check_time }, results = #{results },check_comment = #{check_comment },check_status = #{check_status},
+		interview_status= #{interview_status},interview_amount =#{interview_amount}
+		where resume_id=#{resume_id}
+	</update>
+	
+	<delete id="delete" parameterType="EngageInterview">
+		delete from engage_interview where  resume_id=#{resume_id}
+	</delete>
+	
+	<update id="updateInfoTest"  parameterType="EngageInterview">
+		update engage_interview set 
+		 results = #{results },check_status = #{check_status},
+		interview_status= #{interview_status} ,
+		where resume_id=#{resume_id}
+	</update>
+	
+</mapper>

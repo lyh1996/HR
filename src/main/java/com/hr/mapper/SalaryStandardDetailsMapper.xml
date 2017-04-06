@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.SalaryStandardDetailsMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+	<insert id="saveSalaryStandardDetails" parameterType="SalaryStandardDetails"
+		useGeneratedKeys="true" keyProperty="sdt_id" >
+		insert into
+		salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+		value(#{standard_id},#{standard_name},#{item_id},#{item_name},#{salary})	
+	</insert>
+
+	<select id="getSalaryStandardDetailsById" resultType="SalaryStandardDetails">
+		select * from
+		salary_standard_details 
+		where standard_id=#{standard_id}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="updateSalaryStandardDetails" parameterType="SalaryStandardDetails">
+		update
+		salary_standard_details set
+		 standard_name=#{standard_name},salary=#{salary}
+		where standard_id=#{standard_id}
+	</update>
+	
+	
+	<!-- 更新变更 -->
+	<update id="updateChangeSalaryStandardDetails" parameterType="SalaryStandardDetails">
+		update 
+		salary_standard_details set
+		standard_name=#{standard_name},salary=#{salary}
+		where standard_id=#{standard_id}
+	</update>
+	
+	
+			<!-- 删除操作 -->
+	<delete id="delInfo" parameterType="SalaryStandardDetails">
+		delete from
+		salary_standard_details where standard_id=#{standard_id}
+	</delete>
+
+</mapper>
+

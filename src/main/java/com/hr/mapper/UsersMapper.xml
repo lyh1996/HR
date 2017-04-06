@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.HrUserMapper">
+	<!-- 使用二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
+	<select id="getUsersByU_name" resultType="HrUser" parameterType="HrUser">
+		select * from
+		users where 1=1
+		<if test="UName!=null and UName!=''">
+				and  UName=#{UName}
+		</if>
+		<if test="UPassword!=null and UPassword!=''">
+		 and UPassword=#{UPassword}
+		 </if>
+	</select>
+	 
+	
+	<select id="getAllUsers" resultType="HrUser" parameterType="HrUser">
+		select * from users where 1=1
+		<if test="UName!=null and UName!=''">
+				 and UName=#{UName}
+		</if>
+	</select>
+	
+	<!-- 插入信息 -->
+	<insert id="saveUsers" parameterType="HrUser" useGeneratedKeys="true" keyProperty="UId">
+		insert into
+		users(UName,UTrueName,UPassword,hufId)
+		values(#{UName},#{UTrueName},#{UPassword},#{hufId})
+	</insert>
+
+
+	<!-- 更改密码 -->
+	<update id="updateUsers" parameterType="HrUser">
+		update
+		users set
+		 UPassword=#{UPassword}
+		where UName=#{UName}
+	</update>
+	
+	<select id="getInfoByUserID" resultType="HrUser" parameterType="HrUser">
+		select * from users  where UId=#{UId}
+	</select>
+	<!-- 删除用户 -->
+	<delete id="delInfoByID" parameterType="HrUser">
+		delete from
+		users where UId=#{UId}
+	</delete>
+	
+</mapper>
